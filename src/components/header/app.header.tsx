@@ -13,6 +13,7 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function AppHeader() {
     const router = useRouter()
@@ -113,20 +114,25 @@ export default function AppHeader() {
                     background: "#ffffff",
                     color: "#000000"
                 }}>
-                <Container>
+                <Container disableGutters>
                     <Toolbar>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{
-                                display: { xs: 'none', sm: 'block' },
-                                cursor: "pointer"
-                            }}
-                            onClick={() => handleRedirectHome()}
-                        >
-                            This is Logo
-                        </Typography>
+                        <Box sx={{ cursor: "pointer", display: "flex" }}>
+                            <Box >
+                                <Image
+                                    src="/logo/logo.jpg"
+                                    alt="Vietnam Innovation Gateway Logo"
+                                    width={50}
+                                    height={50}
+                                />
+                            </Box>
+                            <Typography
+                                onClick={() => handleRedirectHome()}
+                                variant="h6"
+                                component="div"
+                                sx={{ fontWeight: 'bold', textTransform: 'uppercase', lineHeight: 1.2 }}>
+                                VIETNAM INNOVATION <br /> GATEWAY
+                            </Typography>
+                        </Box>
 
                         <Box sx={{ flexGrow: 1 }} />
                         <Box sx={{
@@ -166,6 +172,6 @@ export default function AppHeader() {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
-        </Box>
+        </Box >
     );
 }
