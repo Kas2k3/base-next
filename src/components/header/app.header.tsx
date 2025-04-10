@@ -14,8 +14,11 @@ import Avatar from '@mui/material/Avatar';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useSession, signIn, signOut } from 'next-auth/react'
+import { Button } from '@mui/material';
 
 export default function AppHeader() {
+    const { data: session } = useSession();
     const router = useRouter()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -67,7 +70,9 @@ export default function AppHeader() {
                     Profile
                 </Link>
             </MenuItem>
-            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={() => {
+                handleMenuClose()
+            }}>Logout</MenuItem>
         </Menu >
     );
 
@@ -151,9 +156,26 @@ export default function AppHeader() {
                             <Link href={"/news"}>News</Link>
                             <Link href={"/events"}>Events</Link>
                             <Link href={"/contact"}>Contact</Link>
-                            <Avatar
-                                onClick={handleProfileMenuOpen}
-                            >U1</Avatar>
+                            {
+                                session ?
+                                    <p>
+                                        <Avatar
+                                            onClick={handleProfileMenuOpen}
+                                        >U1</Avatar>
+                                    </p>
+                                    :
+                                    <Button sx={{
+                                        "> a": {
+                                            color: "unset",
+                                            textDecoration: "unset"
+                                        }
+                                    }}>
+                                        <Link href={"/auth/login"}>
+                                            Đăng nhập
+                                        </Link>
+                                    </Button>
+                            }
+
                         </Box>
                         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                             <IconButton

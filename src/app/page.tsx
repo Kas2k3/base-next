@@ -5,7 +5,7 @@ import ContentService from "@/components/content/content.service";
 import ContentSlider from "@/components/content/content.slider";
 import { Container } from "@mui/material";
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
     <Container disableGutters maxWidth={false}>
       <ContentSlider />
