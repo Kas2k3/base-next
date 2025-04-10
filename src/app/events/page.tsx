@@ -13,52 +13,59 @@ import {
     Select,
     MenuItem,
     Stack,
-    TextField
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useRouter } from 'next/navigation';
 
 const EventsPage = () => {
+    const router = useRouter();
     const events = [
         {
-            id: 1,
-            title: 'LỄ KỶ NIỆM 5 NĂM THÀNH LẬP TRUNG TÂM',
-            date: '14 APR',
-            description: 'SẢN SÁNG ĐỒNG HÀ - ĐỔI MỚI SÁNG TẠO CÙNG RENOVATE VIỆT NAM 2024',
+            id: '1',
+            date: '10 APR',
+            title: 'Trại hè “Sáng tạo và Hội nhập”',
+            description: `Trại hè “Sáng tạo và Hội nhập” là sự kiện thường niên dành cho sinh viên yêu thích công nghệ, đổi mới sáng tạo và khởi nghiệp. 
+        Tham gia trại hè, bạn sẽ được:
+        
+        • Giao lưu với các chuyên gia trong lĩnh vực công nghệ và khởi nghiệp  
+        • Tham gia workshop thực hành lập trình, thiết kế sản phẩm  
+        • Kết nối với các đội nhóm dự án sinh viên từ các trường đại học  
+        • Cơ hội nhận học bổng và giải thưởng hấp dẫn`,
             image: 'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
         },
         {
             id: 2,
             title: 'LỄ KỶ NIỆM 5 NĂM THÀNH LẬP TRUNG TÂM',
-            date: '14 APR',
-            description: 'SẢN SÁNG ĐỒNG HÀ - ĐỔI MỚI SÁNG TẠO CÙNG RENOVATE VIỆT NAM 2024',
+            date: '10 APR',
+            description: 'INNOVATION SUPPORT CENTER - ĐỔI MỚI SÁNG TẠO CÙNG RENOVATE VIỆT NAM 2025',
             image: 'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
         },
         {
             id: 3,
             title: 'LỄ KỶ NIỆM 5 NĂM THÀNH LẬP TRUNG TÂM',
-            date: '14 APR',
-            description: 'SẢN SÁNG ĐỒNG HÀ - ĐỔI MỚI SÁNG TẠO CÙNG RENOVATE VIỆT NAM 2024',
+            date: '10 APR',
+            description: 'INNOVATION SUPPORT CENTER - ĐỔI MỚI SÁNG TẠO CÙNG RENOVATE VIỆT NAM 2025',
             image: 'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
         },
         {
             id: 4,
             title: 'LỄ KỶ NIỆM 5 NĂM THÀNH LẬP TRUNG TÂM',
-            date: '14 APR',
-            description: 'SẢN SÁNG ĐỒNG HÀ - ĐỔI MỚI SÁNG TẠO CÙNG RENOVATE VIỆT NAM 2024',
+            date: '10 APR',
+            description: 'INNOVATION SUPPORT CENTER - ĐỔI MỚI SÁNG TẠO CÙNG RENOVATE VIỆT NAM 2025',
             image: 'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
         },
         {
             id: 5,
             title: 'LỄ KỶ NIỆM 5 NĂM THÀNH LẬP TRUNG TÂM',
-            date: '14 APR',
-            description: 'SẢN SÁNG ĐỒNG HÀ - ĐỔI MỚI SÁNG TẠO CÙNG RENOVATE VIỆT NAM 2024',
+            date: '10 APR',
+            description: 'INNOVATION SUPPORT CENTER - ĐỔI MỚI SÁNG TẠO CÙNG RENOVATE VIỆT NAM 2025',
             image: 'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
         },
         {
             id: 6,
             title: 'LỄ KỶ NIỆM 5 NĂM THÀNH LẬP TRUNG TÂM',
-            date: '14 APR',
-            description: 'SẢN SÁNG ĐỒNG HÀ - ĐỔI MỚI SÁNG TẠO CÙNG RENOVATE VIỆT NAM 2024',
+            date: '10 APR',
+            description: 'INNOVATION SUPPORT CENTER - ĐỔI MỚI SÁNG TẠO CÙNG RENOVATE VIỆT NAM 2025',
             image: 'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
         },
     ];
@@ -103,7 +110,6 @@ const EventsPage = () => {
                 </Typography>
             </Box>
 
-            {/* Filter Section */}
             <Box
                 sx={{
                     bgcolor: '#1f2a5a',
@@ -294,12 +300,16 @@ const EventsPage = () => {
                                         textAlign: 'center',
                                         minWidth: '50px'
                                     }}>
-                                        <Typography variant="subtitle2" color="primary" sx={{ fontWeight: 'bold', fontSize: '0.9rem' }}>
-                                            {event.date.split(' ')[0]}
-                                        </Typography>
-                                        <Typography variant="caption" sx={{ display: 'block', fontWeight: 'bold', fontSize: '0.7rem' }}>
-                                            {event.date.split(' ')[1]}
-                                        </Typography>
+                                        {event.date ? (
+                                            <>
+                                                <Typography variant="subtitle2" color="primary" sx={{ fontWeight: 'bold', fontSize: '0.9rem' }}>
+                                                    {event.date?.split(' ')[0]}
+                                                </Typography>
+                                                <Typography variant="caption" sx={{ display: 'block', fontWeight: 'bold', fontSize: '0.7rem' }}>
+                                                    {event.date?.split(' ')[1]}
+                                                </Typography>
+                                            </>
+                                        ) : null}
                                     </Box>
                                 </Box>
 
@@ -308,7 +318,18 @@ const EventsPage = () => {
                                         {event.title}
                                     </Typography>
 
-                                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                                    <Typography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        sx={{
+                                            mb: 2,
+                                            display: '-webkit-box',
+                                            WebkitLineClamp: 2,
+                                            WebkitBoxOrient: 'vertical',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                        }}
+                                    >
                                         {event.description}
                                     </Typography>
 
@@ -335,6 +356,10 @@ const EventsPage = () => {
                                                 textTransform: 'none',
                                                 flex: 1
                                             }}
+                                            onClick={() => {
+                                                localStorage.setItem('selectedEvent', JSON.stringify(event))
+                                                router.push(`/events/${event.id}`)
+                                            }}
                                         >
                                             Chi tiết
                                         </Button>
@@ -345,7 +370,6 @@ const EventsPage = () => {
                     ))}
                 </Box>
 
-                {/* View More Button */}
                 <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
                     <Button
                         variant="outlined"

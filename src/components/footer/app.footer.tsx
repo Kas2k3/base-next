@@ -19,20 +19,12 @@ const Footer = () => {
             <Container maxWidth="lg">
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: { xs: 2, md: 0 } }}>
-                        <Box >
-                            <Image
-                                src="/logo/logo.jpg"
-                                alt="Vietnam Innovation Gateway Logo"
-                                width={50}
-                                height={50}
-                            />
-                        </Box>
-                        <Typography
-                            variant="h6"
-                            component="div"
-                            sx={{ ml: '10px', fontWeight: 'bold', textTransform: 'uppercase', lineHeight: 1.2 }}>
-                            VIETNAM INNOVATION <br /> GATEWAY
-                        </Typography>
+                        <Image
+                            src="/logo/logo.jpg"
+                            alt="Vietnam Innovation Gateway Logo"
+                            width={100}
+                            height={100}
+                        />
                     </Box>
                     <Stack spacing={1}>
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>

@@ -27,7 +27,7 @@ export const authOptions = {
                 if (res && res.data) {
                     return res.data as any;
                 } else {
-                    return null
+                    return new Error(res?.message)
                 }
             }
         })

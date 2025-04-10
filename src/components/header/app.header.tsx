@@ -1,199 +1,167 @@
 'use client'
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import {
+    AppBar, Box, Toolbar, IconButton,
+    MenuItem, Menu, Container, Avatar, Button, Drawer,
+    List, ListItem, ListItemText, Divider
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import Image from 'next/image';
-import { useSession, signIn, signOut } from 'next-auth/react'
-import { Button } from '@mui/material';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function AppHeader() {
     const { data: session } = useSession();
-    const router = useRouter()
+    const router = useRouter();
+    const pathname = usePathname();
+
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-        React.useState<null | HTMLElement>(null);
+    const [drawerOpen, setDrawerOpen] = React.useState(false);
 
     const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
-
     const handleMenuClose = () => {
         setAnchorEl(null);
-        handleMobileMenuClose();
     };
 
-    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setMobileMoreAnchorEl(event.currentTarget);
+    const toggleDrawer = (open: boolean) => () => {
+        setDrawerOpen(open);
     };
 
-    const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
             anchorEl={anchorEl}
-            // anchorOrigin={{
-            //     vertical: 'top',
-            //     horizontal: 'right',
-            // }}
-            id={menuId}
-            keepMounted
-            // transformOrigin={{
-            //     vertical: 'top',
-            //     horizontal: 'right',
-            // }}
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem>
-                <Link href={"profile"}
-                    style={{
-                        color: "unset",
-                        textDecoration: "unset"
-                    }} >
-                    Profile
-                </Link>
+            <MenuItem onClick={handleMenuClose}>
+                <Link href="/profile" style={{ color: "unset", textDecoration: "none" }}>Profile</Link>
             </MenuItem>
             <MenuItem onClick={() => {
-                handleMenuClose()
+                handleMenuClose();
             }}>Logout</MenuItem>
-        </Menu >
-    );
-
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-        >
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
         </Menu>
     );
 
-    const handleRedirectHome = () => {
-        router.push("/")
-    }
+    const menuItems = [
+        { label: 'Home', href: '/' },
+        { label: 'About', href: '/about' },
+        { label: 'Services', href: '/services' },
+        { label: 'News', href: '/news' },
+        { label: 'Events', href: '/events' },
+        { label: 'Contact', href: '/contact' },
+    ];
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static"
-                sx={{
-                    background: "#ffffff",
-                    color: "#000000"
-                }}>
+            <AppBar position="static" sx={{ background: "#fff", color: "#000" }}>
                 <Container disableGutters>
                     <Toolbar>
-                        <Box sx={{ cursor: "pointer", display: "flex" }}>
-                            <Box >
-                                <Image
-                                    src="/logo/logo.jpg"
-                                    alt="Vietnam Innovation Gateway Logo"
-                                    width={50}
-                                    height={50}
-                                />
-                            </Box>
-                            <Typography
-                                onClick={() => handleRedirectHome()}
-                                variant="h6"
-                                component="div"
-                                sx={{ fontWeight: 'bold', textTransform: 'uppercase', lineHeight: 1.2 }}>
-                                VIETNAM INNOVATION <br /> GATEWAY
-                            </Typography>
+                        <Box sx={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
+                            <Image
+                                src="/logo/logo.jpg"
+                                alt="Vietnam Innovation Gateway Logo"
+                                width={70}
+                                height={70}
+                            />
                         </Box>
 
                         <Box sx={{ flexGrow: 1 }} />
+
+                        {/* Desktop menu */}
                         <Box sx={{
                             display: { xs: 'none', md: 'flex' },
-                            gap: "20px",
-                            alignItems: "center",
-                            cursor: "pointer",
-                            "> a": {
-                                color: "unset",
-                                textDecoration: "unset"
-                            }
+                            gap: 2,
+                            alignItems: 'center',
                         }}>
-                            <Link href={"/"}>Home</Link>
-                            <Link href={"/about"}>About</Link>
-                            <Link href={"/services"}>Services</Link>
-                            <Link href={"/news"}>News</Link>
-                            <Link href={"/events"}>Events</Link>
-                            <Link href={"/contact"}>Contact</Link>
+                            {menuItems.map(item => (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    style={{
+                                        color: 'inherit',
+                                        textDecoration: 'none',
+                                        fontWeight: pathname === item.href ? 'bold' : 'normal',
+                                        borderBottom: pathname === item.href ? '2px solid #1976d2' : 'none',
+                                        paddingBottom: 4
+                                    }}
+                                >
+                                    {item.label}
+                                </Link>
+                            ))}
                             {
-                                session ?
-                                    <p>
-                                        <Avatar
-                                            onClick={handleProfileMenuOpen}
-                                        >U1</Avatar>
-                                    </p>
-                                    :
-                                    <Button sx={{
-                                        "> a": {
-                                            color: "unset",
-                                            textDecoration: "unset"
-                                        }
-                                    }}>
-                                        <Link href={"/auth/login"}>
+                                session ? (
+                                    <Avatar onClick={handleProfileMenuOpen} sx={{ cursor: 'pointer' }}>U1</Avatar>
+                                ) : (
+                                    <Button>
+                                        <Link href="/auth/login" style={{ color: 'inherit', textDecoration: 'none' }}>
                                             Đăng nhập
                                         </Link>
                                     </Button>
+                                )
                             }
-
                         </Box>
+
+                        {/* Mobile icon */}
                         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                            <IconButton
-                                size="large"
-                                aria-label="show more"
-                                aria-controls={mobileMenuId}
-                                aria-haspopup="true"
-                                onClick={handleMobileMenuOpen}
-                                color="inherit"
-                            >
-                                <MoreIcon />
+                            <IconButton onClick={toggleDrawer(true)}>
+                                <MenuIcon />
                             </IconButton>
                         </Box>
                     </Toolbar>
                 </Container>
             </AppBar>
-            {renderMobileMenu}
+
+            {/* Drawer for mobile */}
+            <Drawer
+                anchor="right"
+                open={drawerOpen}
+                onClose={toggleDrawer(false)}
+            >
+                <Box
+                    sx={{ width: 250 }}
+                    onClick={toggleDrawer(false)}
+                    onKeyDown={toggleDrawer(false)}
+                >
+                    <List>
+                        {menuItems.map((item) => (
+                            <Link key={item.href} href={item.href} passHref>
+                                <ListItem
+                                    sx={{
+                                        '&.Mui-selected': {
+                                            backgroundColor: '#e3f2fd',
+                                            fontWeight: 'bold',
+                                        },
+                                    }}
+                                >
+                                    <ListItemText primary={item.label} />
+                                </ListItem>
+                            </Link>
+                        ))}
+                        <Divider />
+                        {
+                            session ? (
+                                <ListItem onClick={handleProfileMenuOpen}>
+                                    <ListItemText primary="Profile" />
+                                </ListItem>
+                            ) : (
+                                <Link href="/auth/login" passHref>
+                                    <ListItem>
+                                        <ListItemText primary="Đăng nhập" />
+                                    </ListItem>
+                                </Link>
+                            )
+                        }
+                    </List>
+                </Box>
+            </Drawer>
+
             {renderMenu}
-        </Box >
+        </Box>
     );
 }

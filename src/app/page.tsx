@@ -1,8 +1,8 @@
-import ContentEvent from "@/components/content/content.event";
-import ContentIntroduce from "@/components/content/content.introduce";
-import ContentNews from "@/components/content/content.news";
-import ContentService from "@/components/content/content.service";
-import ContentSlider from "@/components/content/content.slider";
+import ContentEvent from "@/components/content/ContentEvent";
+import ContentIntroduce from "@/components/content/ContentIntroduce";
+import ContentNews from "@/components/content/ContentNews";
+import ContentService from "@/components/content/ContentService";
+import ContentSlider from "@/components/content/ContentSlider";
 import { Container } from "@mui/material";
 
 export default async function HomePage() {

@@ -1,34 +1,9 @@
-'use client';
+import { Box, Paper } from '@mui/material';
 
-import { useEffect, useState } from 'react';
-import { UserProfile } from './types';
-import ProfileContent from './ProfileContent';
-
-export default function ProfileContainer() {
-    const [profile, setProfile] = useState<UserProfile | null>(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchProfile = async () => {
-            try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/profile`, {
-                    credentials: 'include',
-                });
-
-                const data = await res.json();
-                setProfile(data.data);
-            } catch (error) {
-                console.error('Lỗi khi lấy profile:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchProfile();
-    }, []);
-
-    if (loading) return <p>Loading...</p>;
-    if (!profile) return <p>Không thể tải thông tin người dùng</p>;
-
-    return <ProfileContent profile={profile} />;
+export default function ProfileContainer({ children }: { children: React.ReactNode }) {
+    return (
+        <Paper elevation={3} sx={{ borderRadius: 3, overflow: 'hidden', p: { xs: 2, md: 4 } }}>
+            {children}
+        </Paper>
+    );
 }

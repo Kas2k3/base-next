@@ -1,16 +1,16 @@
-import AuthLogin from "@/components/auth/AuthLogin";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import ForgotPassword from "@/components/auth/ForgotPassword";
 import { getServerSession } from "next-auth/next"
 import { redirect } from 'next/navigation'
 
-const LoginPage = async () => {
+const ForgotPasswordPage = async () => {
     const session = await getServerSession(authOptions)
     if (session) {
         redirect("/");
     }
     return (
-        <AuthLogin />
+        <ForgotPassword />
     )
 }
 
-export default LoginPage;
+export default ForgotPasswordPage;
