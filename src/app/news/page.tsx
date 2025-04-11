@@ -108,7 +108,7 @@ const NewsPage = () => {
                 <div className="flex flex-col md:flex-row gap-6">
                     <div className="flex-1">
                         <Card
-                            variant="borderless">
+                            variant="borderless"
                             className="shadow-none p-0"
                             cover={
                                 <img
@@ -142,7 +142,7 @@ const NewsPage = () => {
                 <div className="flex flex-col md:flex-row gap-6">
                     <div className="flex-1">
                         <Card
-                            variant="borderless">
+                            variant="borderless"
                             className="shadow-none p-0"
                             cover={
                                 <img

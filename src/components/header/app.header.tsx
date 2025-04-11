@@ -1,17 +1,17 @@
 'use client'
 
-import { useState } from 'react';
-import { DownOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Button, Drawer, Dropdown, Space } from 'antd';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useSession } from 'next-auth/react';
-import { usePathname } from 'next/navigation';
+import { useState } from 'react'
+import { DownOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons'
+import { Avatar, Button, Drawer, Dropdown, Space } from 'antd'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
+import { usePathname } from 'next/navigation'
 
 const AppHeader = () => {
-    const { data: session } = useSession();
-    const pathname = usePathname();
-    const [drawerOpen, setDrawerOpen] = useState(false);
+    const { data: session } = useSession()
+    const pathname = usePathname()
+    const [drawerOpen, setDrawerOpen] = useState(false)
 
     const menuItems = [
         { label: 'Home', href: '/' },
@@ -20,7 +20,7 @@ const AppHeader = () => {
         { label: 'News', href: '/news' },
         { label: 'Events', href: '/events' },
         { label: 'Contact', href: '/contact' },
-    ];
+    ]
 
     const items = [
         {
@@ -31,10 +31,10 @@ const AppHeader = () => {
             label: <span>Logout</span>,
             key: 'logout',
         },
-    ];
+    ]
 
     return (
-        <header className="w-full bg-white shadow-md">
+        <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
             <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
                 <Link href="/" className="flex items-center space-x-2">
                     <Image
@@ -51,7 +51,9 @@ const AppHeader = () => {
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`hover:text-blue-600 ${pathname === item.href ? 'font-semibold border-b-2 border-blue-500 pb-1' : ''
+                            className={`hover:text-blue-600 ${pathname === item.href
+                                ? 'font-semibold border-b-2 border-blue-500 pb-1'
+                                : ''
                                 }`}
                         >
                             {item.label}
@@ -105,8 +107,8 @@ const AppHeader = () => {
                     )}
                 </nav>
             </Drawer>
-        </header >
-    );
-};
+        </header>
+    )
+}
 
-export default AppHeader;
+export default AppHeader

@@ -18,11 +18,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }}
           >
             <AppHeader />
-            <main>{children}</main>
-            <AppFooter />
           </div>
+
+          <main className="pt-[85px]">
+            {children}
+          </main>
+
+          <AppFooter />
         </AuthWrapper>
       </body>
-    </html >
+    </html>
   );
 }

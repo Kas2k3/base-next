@@ -1,99 +1,99 @@
 'use client'
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider, { Settings } from "react-slick";
-import { Button } from "antd";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { Divider, Typography } from "antd";
+import { Typography, Button, Card, Tag } from 'antd'
 
-const ContentEvent = () => {
-    const NextArrow = (props: any) => {
-        return (
-            <Button
-                type="default"
-                shape="circle"
-                onClick={props.onClick}
-                className="!absolute !right-0 top-1/2 -translate-y-1/2 z-10"
-                icon={<RightOutlined />}
-            />
-        );
-    };
+const events = [
+    {
+        id: 1,
+        title: "THE 5TH ANNIVERSARY CELEBRATION OF THE CENTER'S ESTABLISHMENT",
+        description: "READY TO IGNITE – INNOVATE WITH VIETNAM 2024",
+        date: '2024-04-14',
+        image:
+            'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
+    },
+    {
+        id: 2,
+        title: 'Workshop: Safeguarding Revenue through Intellectual...',
+        description:
+            'Hosted by GameGeek, with the participation of leading experts from LNN.',
+        date: '2024-03-27',
+        image:
+            'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
+    },
+    {
+        id: 3,
+        title: "THE 5TH ANNIVERSARY CELEBRATION OF THE CENTER'S ESTABLISHMENT",
+        description: "READY TO IGNITE – INNOVATE WITH VIETNAM 2024",
+        date: '2024-04-14',
+        image:
+            'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
+    },
+]
 
-    const PrevArrow = (props: any) => {
-        return (
-            <Button
-                type="default"
-                shape="circle"
-                onClick={props.onClick}
-                className="!absolute !left-0 top-1/2 -translate-y-1/2 z-10"
-                icon={<LeftOutlined />}
-            />
-        );
-    };
+function formatDate(dateString: string) {
+    const date = new Date(dateString)
+    const options = { month: 'short' } as const
+    const month = date.toLocaleString('en-US', options).toUpperCase()
+    const day = date.getDate()
+    return { month, day }
+}
 
-    const settings: Settings = {
-        infinite: true,
-        speed: 500,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow />,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    infinite: true,
-                    dots: true,
-                },
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2,
-                },
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                },
-            },
-        ],
-    };
-
+export default function ContentEvent() {
     return (
         <div className="mx-[50px]">
-            <Typography.Title level={5} className="text-blue-600 mb-4">
+            <Typography.Title level={3} className="text-blue-600 mb-4">
                 Events:
             </Typography.Title>
 
-            <Slider {...settings}>
-                {["Event 1", "Event 2", "Event 3", "Event 4", "Event 5", "Event 6"].map(
-                    (item, index) => (
-                        <div key={index} className="px-2">
-                            <div className="border border-gray-300 p-5 h-[200px] flex items-center justify-center text-center">
-                                <h3>{item}</h3>
-                            </div>
-                        </div>
-                    )
-                )}
-            </Slider>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {events.map((event) => {
+                    const { month, day } = formatDate(event.date)
 
-            <div className="flex justify-center my-6">
-                <Button type="primary" href="#">
-                    View more
-                </Button>
+                    return (
+                        <Card
+                            key={event.id}
+                            className="rounded-2xl overflow-hidden shadow hover:shadow-md transition-all"
+                            cover={
+                                <img
+                                    alt={event.title}
+                                    src={event.image}
+                                    className="h-[180px] w-full object-cover"
+                                />
+                            }
+                            bodyStyle={{ padding: '16px' }}
+                        >
+                            <div className="flex mb-2">
+                                <div className="text-center mr-4">
+                                    <div className="text-blue-500 font-bold text-xs">{month}</div>
+                                    <div className="text-lg font-bold leading-none">{day}</div>
+                                </div>
+                                <div>
+                                    <Typography.Text strong className="block">
+                                        {event.title}
+                                    </Typography.Text>
+                                    <Typography.Paragraph type="secondary" ellipsis={{ rows: 2 }}>
+                                        {event.description}
+                                    </Typography.Paragraph>
+                                </div>
+                            </div>
+
+                            <div className="flex justify-around items-center mt-4">
+                                <Button size="small" type="default">
+                                    View more
+                                </Button>
+                                <Button size="small" type="primary">
+                                    Registration
+                                </Button>
+                            </div>
+
+                        </Card>
+                    )
+                })}
             </div>
 
-            <Divider className="mb-8" />
+            <div className="flex justify-center mt-6">
+                <Button type="primary">View more</Button>
+            </div>
         </div>
-    );
-};
-
-export default ContentEvent;
+    )
+}

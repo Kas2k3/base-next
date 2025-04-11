@@ -1,88 +1,57 @@
 'use client'
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider, { Settings } from "react-slick";
-import { Button, Typography, Divider } from "antd";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { Typography, Divider, Card, Button } from 'antd'
 
-const ContentNews = () => {
-    const NextArrow = (props: any) => {
-        return (
-            <Button
-                type="default"
-                shape="circle"
-                onClick={props.onClick}
-                className="!absolute !right-0 top-1/2 -translate-y-1/2 z-10"
-                icon={<RightOutlined />}
-            />
-        );
-    };
+const newsList = [
+    {
+        title: 'The 20th ASEAN Ministerial Conference on Science, Technology, and Innovation.',
+        description:
+            'From June 3–7, Cambodia will host the 20th ASEAN Ministerial Conference on Science, Technology, and Innovation.',
+        image: 'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
+        date: 'June 5, 2014',
+    },
+    {
+        title: 'Vietnam’s AI System for Breast X-ray Diagnosis Opens Doors to the U.S.',
+        description:
+            'VinDr by VinBigdata is the first AI product in Vietnam to meet FDA standards in the field of X-ray image analysis.',
+        image: 'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
+        date: 'June 5, 2014',
+    },
+    {
+        title: '47 Projects Win the 2023 Vietnam Science and Technology Innovation Awards.',
+        description:
+            '47 Notable Scientific Projects Being Applied in Production, Delivering High Economic Efficiency, and Serving Daily Life.',
+        image: 'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
+        date: 'June 5, 2014',
+    },
+]
 
-    const PrevArrow = (props: any) => {
-        return (
-            <Button
-                type="default"
-                shape="circle"
-                onClick={props.onClick}
-                className="!absolute !left-0 top-1/2 -translate-y-1/2 z-10"
-                icon={<LeftOutlined />}
-            />
-        );
-    };
-
-    const settings: Settings = {
-        infinite: true,
-        speed: 500,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow />,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    infinite: true,
-                    dots: true,
-                },
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2,
-                },
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                },
-            },
-        ],
-    };
-
+export default function ContentNews() {
     return (
         <div className="mx-[50px]">
             <Typography.Title level={5} className="text-blue-600 mb-4">
                 News:
             </Typography.Title>
 
-            <Slider {...settings}>
-                {["News 1", "News 2", "News 3", "News 4", "News 5", "News 6"].map(
-                    (item, index) => (
-                        <div key={index} className="px-2">
-                            <div className="border border-gray-300 p-5 h-[200px] flex items-center justify-center text-center">
-                                <h3>{item}</h3>
-                            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {newsList.map((item, index) => (
+                    <Card
+                        key={index}
+                        className="rounded-2xl overflow-hidden hover:shadow-md transition-shadow"
+                    >
+                        <div className="p-4">
+                            <img
+                                src={item.image}
+                                alt={item.title}
+                                className="w-full h-[180px] object-cover rounded-md mb-3"
+                            />
+                            <p className="text-xs text-gray-500">{item.date}</p>
+                            <h3 className="font-semibold text-base mb-1">{item.title}</h3>
+                            <p className="text-sm text-gray-600">{item.description}</p>
                         </div>
-                    )
-                )}
-            </Slider>
+                    </Card>
+                ))}
+            </div>
 
             <div className="flex justify-center my-6">
                 <Button type="primary" href="#">
@@ -92,7 +61,5 @@ const ContentNews = () => {
 
             <Divider className="mb-8" />
         </div>
-    );
-};
-
-export default ContentNews;
+    )
+}
