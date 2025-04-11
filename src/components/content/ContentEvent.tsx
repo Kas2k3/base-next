@@ -1,51 +1,36 @@
 'use client'
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider, { Settings } from "react-slick";
-import { Box, Typography } from "@mui/material";
-import Button from "@mui/material/Button/Button";
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import Divider from '@mui/material/Divider';
+import { Button } from "antd";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { Divider, Typography } from "antd";
 
 const ContentEvent = () => {
     const NextArrow = (props: any) => {
         return (
-            <Button variant="outlined"
+            <Button
+                type="default"
+                shape="circle"
                 onClick={props.onClick}
-                sx={{
-                    position: "absolute",
-                    right: 0,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    zIndex: 2,
-                    minWidth: 30,
-                    width: 35,
-                    borderRadius: '50%',
-                }}
-            >
-                <ChevronRightIcon />
-            </Button>
-        )
-    }
+                className="!absolute !right-0 top-1/2 -translate-y-1/2 z-10"
+                icon={<RightOutlined />}
+            />
+        );
+    };
 
     const PrevArrow = (props: any) => {
         return (
-            <Button variant="outlined" onClick={props.onClick}
-                sx={{
-                    position: "absolute",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    zIndex: 2,
-                    minWidth: 30,
-                    width: 35,
-                    borderRadius: '50%',
-                }}
-            >
-                <ChevronLeftIcon />
-            </Button>
-        )
-    }
+            <Button
+                type="default"
+                shape="circle"
+                onClick={props.onClick}
+                className="!absolute !left-0 top-1/2 -translate-y-1/2 z-10"
+                icon={<LeftOutlined />}
+            />
+        );
+    };
 
     const settings: Settings = {
         infinite: true,
@@ -61,74 +46,54 @@ const ContentEvent = () => {
                     slidesToShow: 3,
                     slidesToScroll: 3,
                     infinite: true,
-                    dots: true
-                }
+                    dots: true,
+                },
             },
             {
                 breakpoint: 600,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
-                    initialSlide: 2
-                }
+                    initialSlide: 2,
+                },
             },
             {
                 breakpoint: 480,
                 settings: {
                     slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
-        ]
-    };
-    return (
-        <Box
-            sx={{
-                margin: "0 50px",
-                ".abc": {
-                    padding: "0 10px"
+                    slidesToScroll: 1,
                 },
-                "h3": {
-                    border: "1px solid #ccc",
-                    padding: "20px",
-                    height: "200px",
+            },
+        ],
+    };
 
-                }
-            }}
-        >
-            <Typography variant="h6" component="div" color="primary" gutterBottom>
+    return (
+        <div className="mx-[50px]">
+            <Typography.Title level={5} className="text-blue-600 mb-4">
                 Events:
-            </Typography>
+            </Typography.Title>
 
             <Slider {...settings}>
-                <div className="abc">
-                    <h3>Event 1</h3>
-                </div>
-                <div className="abc">
-                    <h3>Event 2</h3>
-                </div>
-                <div className="abc">
-                    <h3>Event 3</h3>
-                </div>
-                <div className="abc">
-                    <h3>Event 4</h3>
-                </div>
-                <div className="abc">
-                    <h3>Event 5</h3>
-                </div>
-                <div className="abc">
-                    <h3>Event 6</h3>
-                </div>
+                {["Event 1", "Event 2", "Event 3", "Event 4", "Event 5", "Event 6"].map(
+                    (item, index) => (
+                        <div key={index} className="px-2">
+                            <div className="border border-gray-300 p-5 h-[200px] flex items-center justify-center text-center">
+                                <h3>{item}</h3>
+                            </div>
+                        </div>
+                    )
+                )}
             </Slider>
-            <Box sx={{ display: 'flex', justifyContent: 'center', my: 3 }}>
-                <Button variant="contained" href="#contained-buttons">
+
+            <div className="flex justify-center my-6">
+                <Button type="primary" href="#">
                     View more
                 </Button>
-            </Box>
-            <Divider sx={{ mb: 4 }} />
-        </Box>
+            </div>
 
+            <Divider className="mb-8" />
+        </div>
     );
-}
+};
 
 export default ContentEvent;

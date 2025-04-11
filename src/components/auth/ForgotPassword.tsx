@@ -1,111 +1,77 @@
 "use client";
 
 import { useState } from "react";
-import {
-    Box, Typography, TextField, Button, Paper, Container,
-    Snackbar, Alert
-} from "@mui/material";
+import { Form, Input, Button, Typography, message } from "antd";
 import Image from "next/image";
 
+const { Title, Text } = Typography;
+
 export default function ForgotPassword() {
-    const [email, setEmail] = useState("");
-    const [isErrorEmail, setIsErrorEmail] = useState(false);
-    const [errorEmail, setErrorEmail] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-    const [openMessage, setOpenMessage] = useState(false);
-    const [resMessage, setResMessage] = useState("");
-    const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsErrorEmail(false);
-        setErrorEmail("");
-        setIsLoading(true);
-
-        if (!email) {
-            setIsErrorEmail(true);
-            setErrorEmail("Vui lòng nhập email.");
-            setIsLoading(false);
-            return;
-        }
+    const onFinish = async (values: { email: string }) => {
+        const { email } = values;
+        setLoading(true);
 
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/forgot-password`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email }),
-                credentials: "include"
+                credentials: "include",
             });
 
             const data = await res.json();
 
             if (!res.ok) throw new Error(data.message || "Gửi yêu cầu thất bại.");
 
-            setResMessage("Liên kết đặt lại mật khẩu đã được gửi tới email.");
-            setSuccess(true);
+            message.success("Liên kết đặt lại mật khẩu đã được gửi tới email.");
         } catch (err: any) {
-            setResMessage(err.message || "Có lỗi xảy ra.");
-            setSuccess(false);
+            message.error(err.message || "Có lỗi xảy ra.");
         }
 
-        setOpenMessage(true);
-        setIsLoading(false);
+        setLoading(false);
     };
 
     return (
-        <Container maxWidth="sm" sx={{ py: 8 }}>
-            <Paper elevation={3} sx={{ p: 4, borderRadius: "8px" }}>
-                <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
-                    <Image src="/logo/logo.jpg" alt="Vietnam Innovation Gateway" width={70} height={70} />
-                </Box>
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+            <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md">
+                <div className="flex justify-center mb-6">
+                    <Image src="/logo/logo.jpg" alt="Logo" width={70} height={70} />
+                </div>
 
-                <Box component="form" onSubmit={handleSubmit} noValidate>
-                    <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-                        Quên mật khẩu
-                    </Typography>
+                <Title level={4} className="text-center mb-2">
+                    Quên mật khẩu
+                </Title>
 
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                        Nhập địa chỉ email bạn đã đăng ký. Chúng tôi sẽ gửi liên kết để đặt lại mật khẩu.
-                    </Typography>
+                <Text type="secondary" className="block text-center mb-6">
+                    Nhập địa chỉ email bạn đã đăng ký. Chúng tôi sẽ gửi liên kết để đặt lại mật khẩu.
+                </Text>
 
-                    <TextField
-                        fullWidth required id="email" name="email"
+                <Form layout="vertical" onFinish={onFinish}>
+                    <Form.Item
                         label="Email"
-                        autoComplete="email"
-                        error={isErrorEmail}
-                        helperText={errorEmail}
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        variant="outlined"
-                        sx={{ mb: 3, "& .MuiOutlinedInput-root": { borderRadius: "4px" } }}
-                    />
-
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        disabled={isLoading}
-                        sx={{ py: 1.5, borderRadius: "4px", textTransform: "none", fontSize: "1rem" }}
+                        name="email"
+                        rules={[
+                            { required: true, message: "Vui lòng nhập email" },
+                            { type: "email", message: "Email không hợp lệ" },
+                        ]}
                     >
-                        {isLoading ? "Đang gửi yêu cầu..." : "Gửi liên kết đặt lại mật khẩu"}
-                    </Button>
-                </Box>
+                        <Input placeholder="Email của bạn" />
+                    </Form.Item>
 
-                <Snackbar
-                    open={openMessage}
-                    autoHideDuration={5000}
-                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                    onClose={() => setOpenMessage(false)}
-                >
-                    <Alert
-                        severity={success ? "success" : "error"}
-                        sx={{ width: "100%" }}
-                        onClose={() => setOpenMessage(false)}
-                    >
-                        {resMessage}
-                    </Alert>
-                </Snackbar>
-            </Paper>
-        </Container>
+                    <Form.Item>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            loading={loading}
+                            className="w-full"
+                        >
+                            Gửi liên kết đặt lại mật khẩu
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
+        </div>
     );
 }

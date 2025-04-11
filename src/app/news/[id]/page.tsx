@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { Box, Typography, Container } from '@mui/material';
 
 export default function NewsDetailPage() {
     const { id } = useParams();
@@ -20,89 +19,39 @@ export default function NewsDetailPage() {
 
     if (!news) {
         return (
-            <Container sx={{ py: 10 }}>
-                <Typography variant="h6" align="center">
-                    Không tìm thấy tin tức.
-                </Typography>
-            </Container>
+            <div className="py-10 text-center text-lg font-medium">
+                Không tìm thấy tin tức.
+            </div>
         );
     }
 
     return (
-        <>
-            <Box
-                sx={{
-                    position: 'relative',
-                    height: '200px',
-                    backgroundImage: 'url(https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg)',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mb: 4,
-                    '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'rgba(0, 59, 92, 0.7)',
-                    }
-                }}
-            >
-                <Box>
-                    <Typography
-                        variant="h5"
-                        component="h1"
-                        sx={{
-                            color: 'white',
-                            position: 'relative',
-                            fontWeight: 'bold',
-                            textAlign: 'center'
-                        }}
-                    >
-                        {news.title}
-                    </Typography>
-                    <Typography
-                        variant="subtitle2"
-                        color="text.secondary"
-                        gutterBottom
-                        sx={{
-                            color: 'white',
-                            position: 'relative',
-                            textAlign: 'center'
-                        }}
-                    >
-                        {news.author} • {news.date}
-                    </Typography>
-                </Box>
-            </Box>
-            <Container maxWidth="md" sx={{ py: 6 }}>
-                <Box>
-                    <Box
-                        component="img"
-                        src={news.image}
-                        alt={news.title}
-                        sx={{
-                            width: '100%',
-                            height: { xs: 200, sm: 400 },
-                            objectFit: 'cover',
-                            borderRadius: 2,
-                            my: 3,
-                        }}
-                    />
+        <div>
+            <div className="relative h-[200px] bg-cover bg-center flex items-center justify-center mb-8" style={{ backgroundImage: `url(${news.image})` }}>
+                <div className="absolute inset-0 bg-[#003b5c]/70" />
+                <div className="relative z-10 text-white text-center">
+                    <h1 className="text-2xl font-bold">{news.title}</h1>
+                    <p className="text-sm mt-1">{news.author} • {news.date}</p>
+                </div>
+            </div>
 
-                    {Array.isArray(news.content) &&
-                        news.content.map((paragraph: string, index: number) => (
-                            <Typography key={index} variant="body1" paragraph sx={{ lineHeight: 1.8 }}>
-                                {paragraph}
-                            </Typography>
-                        ))}
-                </Box>
-            </Container>
-        </>
+            <div className="max-w-3xl mx-auto px-4 py-8">
+                <img
+                    src={news.image}
+                    alt={news.title}
+                    className="w-full h-[300px] object-cover rounded-2xl mb-6"
+                />
 
+                {Array.isArray(news.content) && news.content.length > 0 ? (
+                    news.content.map((paragraph: string, index: number) => (
+                        <p key={index} className="mb-4 leading-8 text-base text-gray-700">
+                            {paragraph}
+                        </p>
+                    ))
+                ) : (
+                    <p className="text-gray-500 italic">Không có nội dung chi tiết.</p>
+                )}
+            </div>
+        </div>
     );
 }

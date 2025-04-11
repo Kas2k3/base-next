@@ -2,203 +2,112 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-    Box, Typography, TextField, Button, Checkbox,
-    FormControlLabel, Link, Paper, Container, IconButton,
-    Snackbar, Alert
-} from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import Image from "next/image";
 import { signIn } from "next-auth/react";
+import {
+    Button,
+    Checkbox,
+    Form,
+    Input,
+    Typography,
+    message,
+} from "antd";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import Image from "next/image";
+import Link from "next/link";
 
-export default function AuthLogin() {
+const { Title, Text } = Typography;
+
+const AuthLogin = () => {
     const router = useRouter();
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [rememberMe, setRememberMe] = useState<boolean>(false);
-    const [isErrorEmail, setIsErrorEmail] = useState<boolean>(false);
-    const [isErrorPassword, setIsErrorPassword] = useState<boolean>(false);
-    const [errorEmail, setErrorEmail] = useState<string>("");
-    const [errorPassword, setErrorPassword] = useState<string>("");
-    const [openMessage, setOpenMassage] = useState<boolean>(false);
-    const [resMessage, setResMassage] = useState<string>("");
-    const [isLoading, setIsLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const handleTogglePassword = () => {
-        setShowPassword(!showPassword);
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsLoading(true);
-        setErrorEmail("");
-        setErrorPassword("");
-        setIsErrorEmail(false);
-        setIsErrorPassword(false);
-
-        if (!email) {
-            setIsErrorEmail(true);
-            setErrorEmail("Email không được để trống.");
-            setIsLoading(false);
-            return;
-        }
-
-        if (!password) {
-            setIsErrorPassword(true);
-            setErrorPassword("Password không được để trống.");
-            setIsLoading(false);
-            return;
-        }
-
+    const onFinish = async (values: any) => {
+        setLoading(true);
         const res = await signIn("credentials", {
-            email,
-            password,
-            redirect: false
+            email: values.email,
+            password: values.password,
+            redirect: false,
         });
 
         if (!res?.error) {
             router.push("/");
         } else {
-            setOpenMassage(true);
-            setResMassage(res.error);
-            setIsErrorEmail(true);
-            setIsErrorPassword(true);
-            setErrorPassword("Sai email hoặc mật khẩu");
+            message.error("Sai email hoặc mật khẩu");
         }
 
-        setIsLoading(false);
+        setLoading(false);
     };
 
     return (
-        <Container maxWidth="sm" sx={{ py: 8 }}>
-            <Paper elevation={3} sx={{ p: 4, borderRadius: "8px" }}>
-                <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
-                    <Image src="/logo/logo.jpg" alt="Vietnam Innovation Gateway" width={70} height={70} />
-                </Box>
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+            <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md">
+                <div className="flex justify-center mb-6">
+                    <Image src="/logo/logo.jpg" alt="Logo" width={70} height={70} />
+                </div>
 
-                <Box component="form" onSubmit={handleSubmit} noValidate>
-                    <Box sx={{ mb: 3 }}>
-                        <Typography variant="body1" sx={{ mb: 1, fontWeight: 500 }}>
-                            Tên đăng nhập / Email
-                        </Typography>
-                        <TextField
-                            required fullWidth id="email" name="email"
-                            autoComplete="email"
-                            error={isErrorEmail}
-                            helperText={errorEmail}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            variant="outlined"
-                            sx={{ "& .MuiOutlinedInput-root": { borderRadius: "4px" } }}
-                        />
-                    </Box>
+                <Title level={4} className="text-center mb-6">
+                    Đăng nhập tài khoản
+                </Title>
 
-                    <Box sx={{ mb: 2 }}>
-                        <Typography variant="body1" sx={{ mb: 1, fontWeight: 500 }}>
-                            Mật khẩu
-                        </Typography>
-                        <TextField
-                            required fullWidth id="password" name="password"
-                            autoComplete="current-password"
-                            type={showPassword ? "text" : "password"}
-                            error={isErrorPassword}
-                            helperText={errorPassword}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                    handleSubmit(e)
-                                }
-                            }}
-                            variant="outlined"
-                            slotProps={{
-                                input: {
-                                    endAdornment: (
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleTogglePassword}
-                                            edge="end"
-                                        >
-                                            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                                        </IconButton>
-                                    ),
-                                }
-                            }}
-                            sx={{ "& .MuiOutlinedInput-root": { borderRadius: "4px" } }}
-                        />
-                    </Box>
+                <Form
+                    name="login"
+                    layout="vertical"
+                    onFinish={onFinish}
+                    initialValues={{ remember: true }}
+                >
+                    <Form.Item
+                        label="Email"
+                        name="email"
+                        rules={[{ required: true, message: "Vui lòng nhập email" }]}
+                    >
+                        <Input placeholder="Email của bạn" />
+                    </Form.Item>
 
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={rememberMe}
-                                    onChange={(e) => setRememberMe(e.target.checked)}
-                                    name="rememberMe"
-                                    color="primary"
-                                    sx={{ "&.Mui-checked": { color: "primary.main" } }}
-                                />
+                    <Form.Item
+                        label="Mật khẩu"
+                        name="password"
+                        rules={[{ required: true, message: "Vui lòng nhập mật khẩu" }]}
+                    >
+                        <Input.Password
+                            placeholder="Mật khẩu"
+                            iconRender={(visible) =>
+                                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                             }
-                            label={<Typography variant="body2" color="text.secondary">Ghi nhớ đăng nhập</Typography>}
                         />
-                        <Link href="/auth/forgot-password" variant="body2" sx={{
-                            color: "primary.main", textDecoration: "none",
-                            "&:hover": { textDecoration: "underline" }
-                        }}>
+                    </Form.Item>
+
+                    <div className="flex items-center justify-between mb-4">
+                        <Form.Item name="remember" valuePropName="checked" noStyle>
+                            <Checkbox>Ghi nhớ đăng nhập</Checkbox>
+                        </Form.Item>
+                        <Link href="/auth/forgot-password" className="text-blue-600 text-sm">
                             Quên mật khẩu?
                         </Link>
-                    </Box>
+                    </div>
 
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        disabled={isLoading}
-                        sx={{
-                            py: 1.5,
-                            mb: 2,
-                            borderRadius: "4px",
-                            textTransform: "none",
-                            fontSize: "1rem",
-                        }}
-                    >
-                        {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
-                    </Button>
-
-                    <Box sx={{ textAlign: "center" }}>
-                        <Typography variant="body2" color="text.secondary">
-                            Bạn chưa có tài khoản?{" "}
-                            <Link
-                                href="/auth/register"
-                                sx={{
-                                    color: "primary.main",
-                                    textDecoration: "none",
-                                    fontWeight: 500,
-                                    "&:hover": {
-                                        textDecoration: "underline",
-                                    }
-                                }}
-                            >
-                                Đăng ký
-                            </Link>
-                        </Typography>
-                    </Box>
-                    <Snackbar
-                        open={openMessage}
-                        autoHideDuration={5000}
-                        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                    >
-                        <Alert
-                            onClose={() => { }}
-                            severity="error" sx={{ width: '100%' }}
+                    <Form.Item>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            className="w-full"
+                            loading={loading}
                         >
-                            {resMessage}
-                        </Alert>
-                    </Snackbar>
-                </Box>
-            </Paper>
-        </Container>
+                            Đăng nhập
+                        </Button>
+                    </Form.Item>
+                </Form>
+
+                <div className="text-center">
+                    <Text type="secondary">
+                        Chưa có tài khoản?{" "}
+                        <Link href="/auth/register" className="text-blue-600">
+                            Đăng ký
+                        </Link>
+                    </Text>
+                </div>
+            </div>
+        </div>
     );
-}
+};
+
+export default AuthLogin;

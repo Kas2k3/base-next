@@ -1,20 +1,28 @@
 import AppFooter from "@/components/footer/app.footer";
 import AppHeader from "@/components/header/app.header";
-import ThemeRegistry from "@/components/theme-registry/theme.registry";
 import AuthWrapper from "@/lib/auth.wrapper";
+import './globals.css'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <ThemeRegistry>
-          <AuthWrapper>
-            <AppHeader></AppHeader>
-            {children}
-            <AppFooter></AppFooter>
-          </AuthWrapper>
-        </ThemeRegistry>
+        <AuthWrapper>
+          <div
+            style={{
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+              position: "sticky",
+              top: 0,
+              zIndex: 1000,
+              backgroundColor: "#fff",
+            }}
+          >
+            <AppHeader />
+            <main>{children}</main>
+            <AppFooter />
+          </div>
+        </AuthWrapper>
       </body>
-    </html>
+    </html >
   );
 }

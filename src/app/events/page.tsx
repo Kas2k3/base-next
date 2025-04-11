@@ -1,36 +1,28 @@
 'use client'
-import React, { useState } from 'react';
-import {
-    Box,
-    Typography,
-    Container,
-    Card,
-    CardMedia,
-    CardContent,
-    Button,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
-    Stack,
-} from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useRouter } from 'next/navigation';
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Card, Button, Input, Select, Typography } from 'antd'
+import { DownOutlined } from '@ant-design/icons'
+
+const { Title, Text } = Typography
+const { Option } = Select
 
 const EventsPage = () => {
-    const router = useRouter();
+    const router = useRouter()
+
     const events = [
         {
             id: '1',
             date: '10 APR',
             title: 'Trại hè “Sáng tạo và Hội nhập”',
             description: `Trại hè “Sáng tạo và Hội nhập” là sự kiện thường niên dành cho sinh viên yêu thích công nghệ, đổi mới sáng tạo và khởi nghiệp. 
-        Tham gia trại hè, bạn sẽ được:
-        
-        • Giao lưu với các chuyên gia trong lĩnh vực công nghệ và khởi nghiệp  
-        • Tham gia workshop thực hành lập trình, thiết kế sản phẩm  
-        • Kết nối với các đội nhóm dự án sinh viên từ các trường đại học  
-        • Cơ hội nhận học bổng và giải thưởng hấp dẫn`,
+    Tham gia trại hè, bạn sẽ được:
+    
+    • Giao lưu với các chuyên gia trong lĩnh vực công nghệ và khởi nghiệp  
+    • Tham gia workshop thực hành lập trình, thiết kế sản phẩm  
+    • Kết nối với các đội nhóm dự án sinh viên từ các trường đại học  
+    • Cơ hội nhận học bổng và giải thưởng hấp dẫn`,
             image: 'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
         },
         {
@@ -70,321 +62,112 @@ const EventsPage = () => {
         },
     ];
 
-    const [sortBy, setSortBy] = useState('');
-    const [timeFilter, setTimeFilter] = useState('');
+    const [sortBy, setSortBy] = useState('')
+    const [timeFilter, setTimeFilter] = useState('')
 
     return (
-        <Box>
-            <Box
-                sx={{
-                    position: 'relative',
-                    height: '200px',
-                    backgroundImage: 'url(https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg)',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'rgba(0, 59, 92, 0.7)',
-                    }
-                }}
-            >
-                <Typography
-                    variant="h4"
-                    component="h1"
-                    sx={{
-                        color: 'white',
-                        position: 'relative',
-                        fontWeight: 'bold',
-                        textAlign: 'center'
-                    }}
-                >
-                    Sự Kiện
-                </Typography>
-            </Box>
+        <div>
+            <div className="z-0 relative h-56 bg-cover bg-center flex items-center justify-center" style={{ backgroundImage: `url('https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg')` }}>
+                <div className="absolute inset-0 bg-[#003b5c]/70" />
+                <h1 className="relative text-white text-3xl font-bold z-10">Sự Kiện</h1>
+            </div>
 
-            <Box
-                sx={{
-                    bgcolor: '#1f2a5a',
-                    color: 'white',
-                    py: 3,
-                    transform: 'translateY(-20px)',
-                    borderRadius: '10px',
-                    maxWidth: '90%',
-                    mx: 'auto',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
-                }}
-            >
-                <Container>
-                    <Box sx={{
-                        display: 'flex',
-                        flexDirection: { xs: 'column', md: 'row' },
-                        gap: 3
-                    }}>
-                        <Box sx={{ flex: 1 }}>
-                            <Typography variant="subtitle2" sx={{ mb: 1 }}>Tên sự kiện:</Typography>
-                            <Box
-                                component="input"
-                                placeholder="Vui lòng nhập..."
-                                sx={{
-                                    width: '100%',
-                                    bgcolor: 'transparent',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderBottom: '1px solid rgba(255,255,255,0.5)',
-                                    padding: '8px 0',
-                                    fontSize: '1rem',
-                                    fontWeight: 'bold',
-                                    '&::placeholder': {
-                                        color: 'rgba(255,255,255,0.7)',
-                                    },
-                                    '&:focus': {
-                                        outline: 'none',
-                                        borderBottom: '2px solid white',
-                                    }
-                                }}
-                            />
-                        </Box>
-
-                        <Box sx={{ flex: 1 }}>
-                            <Typography variant="subtitle2" sx={{ mb: 1 }}>Địa điểm:</Typography>
-                            <Box
-                                component="input"
-                                placeholder="Vui lòng nhập..."
-                                sx={{
-                                    width: '100%',
-                                    bgcolor: 'transparent',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderBottom: '1px solid rgba(255,255,255,0.5)',
-                                    padding: '8px 0',
-                                    fontSize: '1rem',
-                                    fontWeight: 'bold',
-                                    '&::placeholder': {
-                                        color: 'rgba(255,255,255,0.7)',
-                                    },
-                                    '&:focus': {
-                                        outline: 'none',
-                                        borderBottom: '2px solid white',
-                                    }
-                                }}
-                            />
-                        </Box>
-
-                        <Box sx={{ flex: 1 }}>
-                            <Typography variant="subtitle2" sx={{ mb: 1 }}>Thời gian:</Typography>
-                            <FormControl fullWidth variant="standard" sx={{ borderBottom: '1px solid rgba(255,255,255,0.5)' }}>
-                                <Select
-                                    value={timeFilter}
-                                    onChange={(e) => setTimeFilter(e.target.value)}
-                                    displayEmpty
-                                    sx={{
-                                        color: 'white',
-                                        '& .MuiSelect-icon': { color: 'white' },
-                                        '&::before': { borderBottom: 'none' }
-                                    }}
-                                    IconComponent={KeyboardArrowDownIcon}
-                                >
-                                    <MenuItem value="">
-                                        <Typography>Any date</Typography>
-                                    </MenuItem>
-                                    <MenuItem value="today">Today</MenuItem>
-                                    <MenuItem value="tomorrow">Tomorrow</MenuItem>
-                                    <MenuItem value="this-week">This Week</MenuItem>
-                                    <MenuItem value="this-month">This Month</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </Box>
-                </Container>
-            </Box>
-
-            <Container sx={{ mt: 6, mb: 8 }}>
-                <Box sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    mb: 4,
-                    flexDirection: { xs: 'column', sm: 'row' },
-                    gap: 2
-                }}>
-                    <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}>
-                        Sự kiện
-                    </Typography>
-
-                    <Box sx={{ display: 'flex', gap: 2 }}>
-                        <FormControl size="small" sx={{ minWidth: 180 }}>
-                            <InputLabel>Tình trạng sự kiện</InputLabel>
-                            <Select
-                                value={sortBy}
-                                onChange={(e) => setSortBy(e.target.value)}
-                                label="Tình trạng sự kiện"
-                                IconComponent={KeyboardArrowDownIcon}
-                            >
-                                <MenuItem value="all">Tất cả</MenuItem>
-                                <MenuItem value="upcoming">Sắp diễn ra</MenuItem>
-                                <MenuItem value="ongoing">Đang diễn ra</MenuItem>
-                                <MenuItem value="past">Đã kết thúc</MenuItem>
-                            </Select>
-                        </FormControl>
-
-                        <FormControl size="small" sx={{ minWidth: 120 }}>
-                            <InputLabel>Thể loại</InputLabel>
-                            <Select
-                                value={timeFilter}
-                                onChange={(e) => setTimeFilter(e.target.value)}
-                                label="Thời hạn"
-                                IconComponent={KeyboardArrowDownIcon}
-                            >
-                                <MenuItem value="all">Khoa học</MenuItem>
-                                <MenuItem value="today">Công nghệ</MenuItem>
-                                <MenuItem value="tomorrow">Nội bộ</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                </Box>
-
-                <Box sx={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: 3,
-                    mx: -1.5
-                }}>
-                    {events.map((event) => (
-                        <Box
-                            key={event.id}
-                            sx={{
-                                width: {
-                                    xs: 'calc(100% - 24px)',
-                                    sm: 'calc(50% - 24px)',
-                                    md: 'calc(33.333% - 24px)'
-                                },
-                                p: 1.5
-                            }}
+            <div className="bg-[#1f2a5a] relative text-white -mt-5 p-6 max-w-6xl mx-auto rounded-lg shadow-md">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label className="block text-sm font-semibold mb-1">Tên sự kiện</label>
+                        <Input placeholder="Vui lòng nhập..." className="bg-transparent text-white border-b border-white/50" />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold mb-1">Địa điểm</label>
+                        <Input placeholder="Vui lòng nhập..." className="bg-transparent text-white border-b border-white/50" />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold mb-1">Thời gian</label>
+                        <Select
+                            value={timeFilter}
+                            onChange={setTimeFilter}
+                            suffixIcon={<DownOutlined className="text-white" />}
+                            className="w-full text-white"
+                            dropdownStyle={{ color: 'black' }}
+                            style={{ backgroundColor: 'transparent' }}
                         >
-                            <Card sx={{
-                                height: '100%',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                boxShadow: 'none',
-                                border: '1px solid #eee',
-                                borderRadius: '8px',
-                                overflow: 'hidden',
-                                transition: 'transform 0.3s, box-shadow 0.3s',
-                                '&:hover': {
-                                    transform: 'translateY(-5px)',
-                                    boxShadow: '0 10px 20px rgba(0,0,0,0.1)'
-                                }
-                            }}>
-                                <Box sx={{ position: 'relative' }}>
-                                    <CardMedia
-                                        component="img"
-                                        height="200"
-                                        image={event.image || "https://via.placeholder.com/400x200"}
-                                        alt={event.title}
-                                    />
-                                    <Box sx={{
-                                        position: 'absolute',
-                                        top: 10,
-                                        left: 10,
-                                        bgcolor: '#fff',
-                                        p: 1,
-                                        borderRadius: '4px',
-                                        textAlign: 'center',
-                                        minWidth: '50px'
-                                    }}>
-                                        {event.date ? (
-                                            <>
-                                                <Typography variant="subtitle2" color="primary" sx={{ fontWeight: 'bold', fontSize: '0.9rem' }}>
-                                                    {event.date?.split(' ')[0]}
-                                                </Typography>
-                                                <Typography variant="caption" sx={{ display: 'block', fontWeight: 'bold', fontSize: '0.7rem' }}>
-                                                    {event.date?.split(' ')[1]}
-                                                </Typography>
-                                            </>
-                                        ) : null}
-                                    </Box>
-                                </Box>
+                            <Option value="">Any date</Option>
+                            <Option value="today">Today</Option>
+                            <Option value="tomorrow">Tomorrow</Option>
+                            <Option value="this-week">This Week</Option>
+                            <Option value="this-month">This Month</Option>
+                        </Select>
+                    </div>
+                </div>
+            </div>
 
-                                <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                                    <Typography variant="h6" component="h3" sx={{ fontWeight: 'bold', mb: 1 }}>
-                                        {event.title}
-                                    </Typography>
-
-                                    <Typography
-                                        variant="body2"
-                                        color="text.secondary"
-                                        sx={{
-                                            mb: 2,
-                                            display: '-webkit-box',
-                                            WebkitLineClamp: 2,
-                                            WebkitBoxOrient: 'vertical',
-                                            overflow: 'hidden',
-                                            textOverflow: 'ellipsis',
-                                        }}
-                                    >
-                                        {event.description}
-                                    </Typography>
-
-                                    <Stack direction="row" spacing={1} sx={{ mt: 'auto' }}>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            size="small"
-                                            sx={{
-                                                borderRadius: '4px',
-                                                textTransform: 'none',
-                                                flex: 1
-                                            }}
-                                        >
-                                            Đăng ký
-                                        </Button>
-
-                                        <Button
-                                            variant="outlined"
-                                            color="primary"
-                                            size="small"
-                                            sx={{
-                                                borderRadius: '4px',
-                                                textTransform: 'none',
-                                                flex: 1
-                                            }}
-                                            onClick={() => {
-                                                localStorage.setItem('selectedEvent', JSON.stringify(event))
-                                                router.push(`/events/${event.id}`)
-                                            }}
-                                        >
-                                            Chi tiết
-                                        </Button>
-                                    </Stack>
-                                </CardContent>
-                            </Card>
-                        </Box>
-                    ))}
-                </Box>
-
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        sx={{
-                            borderRadius: '20px',
-                            px: 4
-                        }}
+            <div className="max-w-6xl mx-auto px-4 mt-10 flex flex-col sm:flex-row justify-between gap-4">
+                <Title level={4} className="!mb-0">Sự kiện</Title>
+                <div className="flex gap-4">
+                    <Select
+                        value={sortBy}
+                        onChange={setSortBy}
+                        placeholder="Tình trạng"
+                        size="middle"
+                        className="w-44"
                     >
-                        Xem thêm
-                    </Button>
-                </Box>
-            </Container>
-        </Box>
-    );
-};
+                        <Option value="all">Tất cả</Option>
+                        <Option value="upcoming">Sắp diễn ra</Option>
+                        <Option value="ongoing">Đang diễn ra</Option>
+                        <Option value="past">Đã kết thúc</Option>
+                    </Select>
+                    <Select
+                        value={timeFilter}
+                        onChange={setTimeFilter}
+                        placeholder="Thể loại"
+                        size="middle"
+                        className="w-32"
+                    >
+                        <Option value="science">Khoa học</Option>
+                        <Option value="tech">Công nghệ</Option>
+                        <Option value="internal">Nội bộ</Option>
+                    </Select>
+                </div>
+            </div>
 
-export default EventsPage;
+            {/* Events Grid */}
+            <div className="max-w-6xl mx-auto px-4 mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {events.map((event) => (
+                    <Card
+                        key={event.id}
+                        cover={<img alt={event.title} src={event.image} className="h-48 object-cover" />}
+                        className="hover:shadow-lg transition"
+                    >
+                        <div className="text-sm text-blue-500 font-bold mb-1">
+                            {event.date}
+                        </div>
+                        <Title level={5}>{event.title}</Title>
+                        <Text type="secondary" className="line-clamp-2">{event.description}</Text>
+                        <div className="flex gap-2 mt-4">
+                            <Button type="primary" className="flex-1">Đăng ký</Button>
+                            <Button
+                                className="flex-1"
+                                onClick={() => {
+                                    localStorage.setItem('selectedEvent', JSON.stringify(event))
+                                    router.push(`/events/${event.id}`)
+                                }}
+                            >
+                                Chi tiết
+                            </Button>
+                        </div>
+                    </Card>
+                ))}
+            </div>
+
+            {/* Load More */}
+            <div className="text-center mt-10">
+                <Button type="default" shape="round" size="large">
+                    Xem thêm
+                </Button>
+            </div>
+        </div>
+    )
+}
+
+export default EventsPage

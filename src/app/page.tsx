@@ -1,20 +1,21 @@
+'use client';
+
 import ContentEvent from "@/components/content/ContentEvent";
 import ContentIntroduce from "@/components/content/ContentIntroduce";
 import ContentNews from "@/components/content/ContentNews";
 import ContentService from "@/components/content/ContentService";
 import ContentSlider from "@/components/content/ContentSlider";
-import { Container } from "@mui/material";
 
-export default async function HomePage() {
+export default function HomePage() {
   return (
-    <Container disableGutters maxWidth={false}>
+    <div className="w-full">
       <ContentSlider />
-      <Container>
+      <div className="max-w-6xl mx-auto px-4 mt-8 space-y-12">
         <ContentIntroduce />
-      </Container>
-      <ContentEvent />
-      <ContentService />
-      <ContentNews />
-    </Container>
+        <ContentEvent />
+        <ContentService />
+        <ContentNews />
+      </div>
+    </div>
   );
 }

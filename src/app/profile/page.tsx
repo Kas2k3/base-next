@@ -1,4 +1,3 @@
-import { Container } from "@mui/material";
 import EventOfInterest from "./components/EventOfInterest";
 import ProfileContainer from "./components/ProfileContainer";
 import ProfileHeader from "./components/ProfileHeader";
@@ -7,13 +6,13 @@ import ServiceProcess from "./components/ServiceProcess";
 
 export default function ProfilePage() {
     return (
-        <Container maxWidth="lg" sx={{ my: 6 }}>
+        <div className="max-w-6xl mx-auto my-12 px-4">
             <ProfileContainer>
                 <ProfileHeader />
                 <ProfileInfo />
                 <EventOfInterest />
                 <ServiceProcess />
             </ProfileContainer>
-        </Container >
+        </div>
     );
 }

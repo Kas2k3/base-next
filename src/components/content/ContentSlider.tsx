@@ -1,11 +1,10 @@
 'use client'
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider, { Settings } from "react-slick";
-import { Box } from "@mui/material";
 
 const ContentSlider = () => {
-
     const settings: Settings = {
         dots: true,
         infinite: true,
@@ -17,31 +16,15 @@ const ContentSlider = () => {
         autoplaySpeed: 5000,
         pauseOnHover: true,
         appendDots: dots => (
-            <div
-                style={{
-                    borderRadius: "10px",
-                    padding: "10px",
-                    bottom: "35px",
-                    position: "absolute",
-                    width: "100%",
-                }}
-            >
-                <ul style={{ margin: "0" }}> {dots} </ul>
+            <div className="absolute bottom-9 w-full px-4">
+                <ul className="m-0 flex justify-center space-x-2"> {dots} </ul>
             </div>
         ),
         customPaging: i => (
-            <div
-                style={{
-                    width: "8px",
-                    height: "8px",
-                    background: "white",
-                    borderRadius: "50%",
-                    opacity: 0.7,
-                    transition: "all 0.3s ease"
-                }}
-            />
-        ),
+            <div className="w-2 h-2 bg-white rounded-full opacity-70 transition-all duration-300" />
+        )
     };
+
     const slides = [
         {
             id: 1,
@@ -65,47 +48,23 @@ const ContentSlider = () => {
         }
     ];
 
-
     return (
-        <Box
-            sx={{
-                "h3": {
-                    margin: "0",
-                    padding: "0",
-                    border: "1px solid #ccc",
-                    height: "300px",
-                    width: "100%",
-
-                }
-            }}
-        >
+        <div>
             <Slider {...settings}>
                 {slides.map((slide) => (
-                    <div key={slide.id} className="abc">
-                        <Box
-                            sx={{
-                                position: 'relative',
-                                width: '100%',
-                                height: { xs: '300px', md: '500px' },
-                                overflow: 'hidden',
-                            }}
-                        >
-                            <Box
-                                component="img"
+                    <div key={slide.id}>
+                        <div className="relative w-full h-[300px] md:h-[500px] overflow-hidden">
+                            <img
                                 src={slide.image}
                                 alt={slide.alt}
-                                sx={{
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',
-                                }}
+                                className="w-full h-full object-cover"
                             />
-                        </Box>
+                        </div>
                     </div>
                 ))}
             </Slider>
-        </Box>
+        </div>
     );
-}
+};
 
 export default ContentSlider;

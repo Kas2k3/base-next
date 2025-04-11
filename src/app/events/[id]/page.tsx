@@ -1,13 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import {
-    Typography,
-    Container,
-    CardMedia,
-    Button,
-    Stack,
-} from '@mui/material';
+import { Button, Typography } from 'antd';
 import { useRouter } from 'next/navigation';
+
+const { Title, Text, Paragraph } = Typography;
 
 const EventDetailPage = () => {
     const router = useRouter();
@@ -25,48 +21,36 @@ const EventDetailPage = () => {
     if (!event) return null;
 
     return (
-        <Container sx={{ py: 6 }}>
-            <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2 }}>
-                {event.title}
-            </Typography>
+        <div className="max-w-4xl mx-auto py-10 px-4">
+            <Title level={2} className="!mb-2">{event.title}</Title>
+            <Text type="secondary" className="block mb-6">{event.date}</Text>
 
-            <Typography variant="subtitle2" color="primary" sx={{ mb: 4 }}>
-                {event.date}
-            </Typography>
+            <div className="mb-6 overflow-hidden rounded-lg">
+                <img
+                    src={event.image || "https://via.placeholder.com/800x400"}
+                    alt={event.title}
+                    width={800}
+                    height={400}
+                    className="w-full h-auto object-cover rounded-lg"
+                />
+            </div>
 
-            <CardMedia
-                component="img"
-                height="300"
-                image={event.image || "https://via.placeholder.com/400x200"}
-                alt={event.title}
-                sx={{ borderRadius: 2, mb: 4 }}
-            />
-
-            <Typography
-                variant="body1"
-                sx={{ whiteSpace: 'pre-line', mb: 4, fontSize: '1.1rem' }}
-            >
+            <Paragraph className="text-base leading-relaxed whitespace-pre-line mb-6">
                 {event.description}
-            </Typography>
+            </Paragraph>
 
-            <Stack direction="row" spacing={2}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{ borderRadius: 2, px: 4 }}
-                >
+            <div className="flex gap-4">
+                <Button type="primary" className="px-6 rounded-lg">
                     Đăng ký
                 </Button>
-
                 <Button
-                    variant="outlined"
                     onClick={() => router.push('/events')}
-                    sx={{ borderRadius: 2, px: 4 }}
+                    className="px-6 rounded-lg"
                 >
                     Quay lại
                 </Button>
-            </Stack>
-        </Container>
+            </div>
+        </div>
     );
 };
 

@@ -1,10 +1,11 @@
-'use client'
+'use client';
 import React from 'react';
-import { Box, Typography, Container, Card, CardContent, Divider } from '@mui/material';
+import { Card } from 'antd';
 import { useRouter } from 'next/navigation';
 
 const NewsPage = () => {
     const router = useRouter();
+
     const featuredNews = {
         id: 1,
         title: 'LỄ KỶ NIỆM 5 NĂM THÀNH LẬP TRUNG TÂM ĐỔI MỚI SÁNG TẠO',
@@ -51,228 +52,124 @@ const NewsPage = () => {
         },
     ];
 
-    const handleClick = (news) => {
+    const handleClick = (news: any) => {
         localStorage.setItem('selectedNews', JSON.stringify(news));
         router.push(`/news/${news.id}`);
     };
 
     const renderNewsList = () => (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <div className="flex flex-col gap-4">
             {recentNews.map((news) => (
-                <Box
+                <div
                     key={news.id}
-                    sx={{
-                        display: 'flex',
-                        gap: 2,
-                        pb: 2,
-                        borderBottom: '1px solid #e0e0e0',
-                        '&:last-child': {
-                            borderBottom: 'none'
-                        }
-                    }}
+                    className="flex gap-4 border-b border-gray-200 pb-4 last:border-b-0"
                 >
-                    <Box sx={{ width: 120, flexShrink: 0 }}>
-                        <Box
-                            component="img"
+                    <div className="w-[120px] flex-shrink-0 cursor-pointer">
+                        <img
                             src={news.image}
                             alt={news.title}
-                            sx={{
-                                width: '100%',
-                                height: 80,
-                                objectFit: 'cover',
-                                cursor: 'pointer'
-                            }}
+                            className="w-full h-20 object-cover rounded"
                             onClick={() => handleClick(news)}
                         />
-                    </Box>
-                    <Box>
-                        <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+                    </div>
+                    <div>
+                        <p className="text-sm text-gray-500 mb-1">
                             {news.author} • {news.date}
-                        </Typography>
-                        <Typography
-                            variant="subtitle1"
-                            component="h3"
-                            sx={{
-                                fontWeight: 'bold',
-                                fontSize: '1rem',
-                                lineHeight: 1.3,
-                                cursor: 'pointer',
-                                '&:hover': { color: '#1976d2' }
-                            }}
+                        </p>
+                        <h3
                             onClick={() => handleClick(news)}
+                            className="font-semibold text-base leading-tight cursor-pointer hover:text-blue-600"
                         >
                             {news.title}
-                        </Typography>
-                    </Box>
-                </Box>
+                        </h3>
+                    </div>
+                </div>
             ))}
-        </Box>
+        </div>
+    );
+
+    const sectionTitle = (title: string) => (
+        <div className="mb-4">
+            <h2 className="text-lg font-bold text-red-600 inline-block relative">{title}</h2>
+            <div className="border-b-2 border-gray-200 mt-2 mb-4" />
+        </div>
     );
 
     return (
-        <Box>
-            <Box
-                sx={{
-                    position: 'relative',
-                    height: '200px',
-                    backgroundImage: 'url(https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg)',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mb: 4,
-                    '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'rgba(0, 59, 92, 0.7)',
-                    }
-                }}
-            >
-                <Typography
-                    variant="h4"
-                    component="h1"
-                    sx={{
-                        color: 'white',
-                        position: 'relative',
-                        fontWeight: 'bold',
-                        textAlign: 'center'
-                    }}
-                >
-                    Tin Tức
-                </Typography>
-            </Box>
+        <div className="pb-10">
+            <div className="relative h-[200px] bg-cover bg-center flex items-center justify-center mb-8" style={{ backgroundImage: `url(${featuredNews.image})` }}>
+                <div className="absolute inset-0 bg-[#003b5c]/70" />
+                <h1 className="relative text-white text-3xl font-bold z-10">Tin Tức</h1>
+            </div>
 
-            <Container maxWidth="lg">
-                <Box sx={{ mb: 2 }}>
-                    <Typography
-                        variant="h6"
-                        component="h2"
-                        sx={{
-                            color: '#d32f2f',
-                            fontWeight: 'bold',
-                            position: 'relative',
-                            display: 'inline-block',
-                        }}
-                    >
-                        VIỆT NAM
-                    </Typography>
-                    <Divider sx={{ mt: 2, mb: 4 }} />
-                </Box>
-                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
-                    <Box sx={{ flex: 1 }}>
-                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: 0, boxShadow: 'none' }}>
-                            <Box sx={{ position: 'relative', paddingTop: '56.25%' }}>
-                                <Box
-                                    component="img"
-                                    src={featuredNews.image}
-                                    alt={featuredNews.title}
-                                    onClick={() => handleClick(featuredNews)}
-                                    sx={{
-                                        position: 'absolute',
-                                        top: 0,
-                                        left: 0,
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: 'cover',
-                                        cursor: 'pointer'
-                                    }}
-                                />
-                            </Box>
-                            <CardContent sx={{ p: 0, pt: 2 }}>
-                                <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                                    {featuredNews.author} • {featuredNews.date}
-                                </Typography>
-                                <Typography
-                                    variant="h5"
-                                    component="h3"
-                                    onClick={() => handleClick(featuredNews)}
-                                    sx={{
-                                        fontWeight: 'bold',
-                                        mb: 2,
-                                        fontSize: { xs: '1.2rem', md: '1.5rem' },
-                                        cursor: 'pointer',
-                                        '&:hover': { color: '#1976d2' }
-                                    }}
-                                >
-                                    {featuredNews.title}
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Box>
-                    <Box sx={{ flex: 1 }}>
-                        {renderNewsList()}
-                    </Box>
-                </Box>
-            </Container>
+            <div className="max-w-6xl mx-auto px-4">
+                {sectionTitle('VIỆT NAM')}
 
-            <Container maxWidth="lg" sx={{ mt: 8 }}>
-                <Box sx={{ mb: 2 }}>
-                    <Typography
-                        variant="h6"
-                        component="h2"
-                        sx={{
-                            color: '#d32f2f',
-                            fontWeight: 'bold',
-                            position: 'relative',
-                            display: 'inline-block',
-                        }}
-                    >
-                        THẾ GIỚI
-                    </Typography>
-                    <Divider sx={{ mt: 2, mb: 4 }} />
-                </Box>
-                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
-                    <Box sx={{ flex: 1 }}>
-                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: 0, boxShadow: 'none' }}>
-                            <Box sx={{ position: 'relative', paddingTop: '56.25%' }}>
-                                <Box
-                                    component="img"
-                                    src={featuredNews.image}
+                <div className="flex flex-col md:flex-row gap-6">
+                    <div className="flex-1">
+                        <Card
+                            variant="borderless">
+                            className="shadow-none p-0"
+                            cover={
+                                <img
                                     alt={featuredNews.title}
+                                    src={featuredNews.image}
+                                    className="w-full h-auto aspect-video object-cover cursor-pointer"
                                     onClick={() => handleClick(featuredNews)}
-                                    sx={{
-                                        position: 'absolute',
-                                        top: 0,
-                                        left: 0,
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: 'cover',
-                                        cursor: 'pointer'
-                                    }}
                                 />
-                            </Box>
-                            <CardContent sx={{ p: 0, pt: 2 }}>
-                                <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                                    {featuredNews.author} • {featuredNews.date}
-                                </Typography>
-                                <Typography
-                                    variant="h5"
-                                    component="h3"
-                                    onClick={() => handleClick(featuredNews)}
-                                    sx={{
-                                        fontWeight: 'bold',
-                                        mb: 2,
-                                        fontSize: { xs: '1.2rem', md: '1.5rem' },
-                                        cursor: 'pointer',
-                                        '&:hover': { color: '#1976d2' }
-                                    }}
-                                >
-                                    {featuredNews.title}
-                                </Typography>
-                            </CardContent>
+                            }
+                        >
+                            <div className="text-sm text-gray-500 mb-2">
+                                {featuredNews.author} • {featuredNews.date}
+                            </div>
+                            <h3
+                                onClick={() => handleClick(featuredNews)}
+                                className="text-xl font-bold cursor-pointer hover:text-blue-600"
+                            >
+                                {featuredNews.title}
+                            </h3>
                         </Card>
-                    </Box>
-                    <Box sx={{ flex: 1 }}>
+                    </div>
+
+                    <div className="flex-1">
                         {renderNewsList()}
-                    </Box>
-                </Box>
-            </Container>
-        </Box>
+                    </div>
+                </div>
+            </div>
+
+            <div className="max-w-6xl mx-auto px-4 mt-12">
+                {sectionTitle('THẾ GIỚI')}
+                <div className="flex flex-col md:flex-row gap-6">
+                    <div className="flex-1">
+                        <Card
+                            variant="borderless">
+                            className="shadow-none p-0"
+                            cover={
+                                <img
+                                    alt={featuredNews.title}
+                                    src={featuredNews.image}
+                                    className="w-full h-auto aspect-video object-cover cursor-pointer"
+                                    onClick={() => handleClick(featuredNews)}
+                                />
+                            }
+                        >
+                            <div className="text-sm text-gray-500 mb-2">
+                                {featuredNews.author} • {featuredNews.date}
+                            </div>
+                            <h3
+                                onClick={() => handleClick(featuredNews)}
+                                className="text-xl font-bold cursor-pointer hover:text-blue-600"
+                            >
+                                {featuredNews.title}
+                            </h3>
+                        </Card>
+                    </div>
+                    <div className="flex-1">
+                        {renderNewsList()}
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 };
 

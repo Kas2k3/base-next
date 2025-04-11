@@ -1,52 +1,17 @@
 'use client'
-import * as React from 'react';
-import {
-    AppBar, Box, Toolbar, IconButton,
-    MenuItem, Menu, Container, Avatar, Button, Drawer,
-    List, ListItem, ListItemText, Divider
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+
+import { useState } from 'react';
+import { DownOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Button, Drawer, Dropdown, Space } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
-export default function AppHeader() {
+const AppHeader = () => {
     const { data: session } = useSession();
-    const router = useRouter();
     const pathname = usePathname();
-
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [drawerOpen, setDrawerOpen] = React.useState(false);
-
-    const isMenuOpen = Boolean(anchorEl);
-
-    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
-
-    const toggleDrawer = (open: boolean) => () => {
-        setDrawerOpen(open);
-    };
-
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>
-                <Link href="/profile" style={{ color: "unset", textDecoration: "none" }}>Profile</Link>
-            </MenuItem>
-            <MenuItem onClick={() => {
-                handleMenuClose();
-            }}>Logout</MenuItem>
-        </Menu>
-    );
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     const menuItems = [
         { label: 'Home', href: '/' },
@@ -57,111 +22,91 @@ export default function AppHeader() {
         { label: 'Contact', href: '/contact' },
     ];
 
+    const items = [
+        {
+            label: <span>Profile</span>,
+            key: 'profile',
+        },
+        {
+            label: <span>Logout</span>,
+            key: 'logout',
+        },
+    ];
+
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ background: "#fff", color: "#000" }}>
-                <Container disableGutters>
-                    <Toolbar>
-                        <Box sx={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
-                            <Image
-                                src="/logo/logo.jpg"
-                                alt="Vietnam Innovation Gateway Logo"
-                                width={70}
-                                height={70}
-                            />
-                        </Box>
+        <header className="w-full bg-white shadow-md">
+            <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
+                <Link href="/" className="flex items-center space-x-2">
+                    <Image
+                        src="/logo/logo.jpg"
+                        alt="Vietnam Innovation Gateway Logo"
+                        width={60}
+                        height={60}
+                        className="object-contain"
+                    />
+                </Link>
 
-                        <Box sx={{ flexGrow: 1 }} />
+                <nav className="hidden md:flex space-x-6 items-center">
+                    {menuItems.map((item) => (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            className={`hover:text-blue-600 ${pathname === item.href ? 'font-semibold border-b-2 border-blue-500 pb-1' : ''
+                                }`}
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+                    {session ? (
+                        <Dropdown menu={{ items }} placement="bottomRight" arrow>
+                            <button onClick={(e) => e.preventDefault()}>
+                                <Space>
+                                    <Avatar className="cursor-pointer" icon={<UserOutlined />} />
+                                    <DownOutlined />
+                                </Space>
+                            </button>
+                        </Dropdown>
+                    ) : (
+                        <Link href="/auth/login">
+                            <Button type="primary">Đăng nhập</Button>
+                        </Link>
+                    )}
+                </nav>
 
-                        {/* Desktop menu */}
-                        <Box sx={{
-                            display: { xs: 'none', md: 'flex' },
-                            gap: 2,
-                            alignItems: 'center',
-                        }}>
-                            {menuItems.map(item => (
-                                <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    style={{
-                                        color: 'inherit',
-                                        textDecoration: 'none',
-                                        fontWeight: pathname === item.href ? 'bold' : 'normal',
-                                        borderBottom: pathname === item.href ? '2px solid #1976d2' : 'none',
-                                        paddingBottom: 4
-                                    }}
-                                >
-                                    {item.label}
-                                </Link>
-                            ))}
-                            {
-                                session ? (
-                                    <Avatar onClick={handleProfileMenuOpen} sx={{ cursor: 'pointer' }}>U1</Avatar>
-                                ) : (
-                                    <Button>
-                                        <Link href="/auth/login" style={{ color: 'inherit', textDecoration: 'none' }}>
-                                            Đăng nhập
-                                        </Link>
-                                    </Button>
-                                )
-                            }
-                        </Box>
+                <div className="md:hidden">
+                    <Button type="text" icon={<MenuOutlined />} onClick={() => setDrawerOpen(true)} />
+                </div>
+            </div>
 
-                        {/* Mobile icon */}
-                        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                            <IconButton onClick={toggleDrawer(true)}>
-                                <MenuIcon />
-                            </IconButton>
-                        </Box>
-                    </Toolbar>
-                </Container>
-            </AppBar>
-
-            {/* Drawer for mobile */}
             <Drawer
-                anchor="right"
+                title="Menu"
+                placement="right"
+                onClose={() => setDrawerOpen(false)}
                 open={drawerOpen}
-                onClose={toggleDrawer(false)}
             >
-                <Box
-                    sx={{ width: 250 }}
-                    onClick={toggleDrawer(false)}
-                    onKeyDown={toggleDrawer(false)}
-                >
-                    <List>
-                        {menuItems.map((item) => (
-                            <Link key={item.href} href={item.href} passHref>
-                                <ListItem
-                                    sx={{
-                                        '&.Mui-selected': {
-                                            backgroundColor: '#e3f2fd',
-                                            fontWeight: 'bold',
-                                        },
-                                    }}
-                                >
-                                    <ListItemText primary={item.label} />
-                                </ListItem>
-                            </Link>
-                        ))}
-                        <Divider />
-                        {
-                            session ? (
-                                <ListItem onClick={handleProfileMenuOpen}>
-                                    <ListItemText primary="Profile" />
-                                </ListItem>
-                            ) : (
-                                <Link href="/auth/login" passHref>
-                                    <ListItem>
-                                        <ListItemText primary="Đăng nhập" />
-                                    </ListItem>
-                                </Link>
-                            )
-                        }
-                    </List>
-                </Box>
+                <nav className="flex flex-col gap-4">
+                    {menuItems.map((item) => (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            className={`text-lg ${pathname === item.href ? 'font-bold text-blue-500' : ''}`}
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+                    <hr />
+                    {session ? (
+                        <>
+                            <Link href="/profile" className="text-lg">Profile</Link>
+                            <button className="text-left text-lg w-full">Logout</button>
+                        </>
+                    ) : (
+                        <Link href="/auth/login" className="text-md">Đăng nhập</Link>
+                    )}
+                </nav>
             </Drawer>
-
-            {renderMenu}
-        </Box>
+        </header >
     );
-}
+};
+
+export default AppHeader;

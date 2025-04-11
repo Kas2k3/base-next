@@ -1,27 +1,17 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
+'use client';
+
+import React from 'react';
 
 export default function ContentService() {
     return (
-        <Card sx={{ minWidth: 275, boxShadow: 0, border: 'none' }}>
-            <Box sx={{
-                display: 'flex',
-                flexDirection: { xs: 'column', md: 'row' },
-                gap: 2,
-                p: 2
-            }}>
-                <Box
-                    component="img"
-                    sx={{
-                        width: '100%',
-                        height: 'auto',
-                        objectFit: 'contain'
-                    }}
+        <div className="w-full bg-white border border-transparent shadow-none rounded-lg p-4">
+            <div className="flex flex-col md:flex-row gap-4">
+                <img
+                    className="w-full h-auto object-contain rounded-md"
                     alt="Innovation Service"
                     src="https://innovationcloud.com/pub/blog/15988610704603_innovation_cloud_-_services.png"
                 />
-            </Box>
-        </Card>
+            </div>
+        </div>
     );
 }

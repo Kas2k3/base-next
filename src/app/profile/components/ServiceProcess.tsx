@@ -1,5 +1,6 @@
-import { Box, Typography, Stack, Button } from '@mui/material';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+'use client';
+import { Button } from 'antd';
+import { CustomerServiceOutlined } from '@ant-design/icons';
 
 const services = [
     'Patent/Utility Solution Registration Services.',
@@ -8,19 +9,17 @@ const services = [
 
 export default function ServiceProcess() {
     return (
-        <Box>
-            <Typography variant="subtitle1" fontWeight={600} mb={2}>
-                Service Process
-            </Typography>
-            <Stack spacing={2}>
+        <div className="mb-6">
+            <h3 className="text-base font-semibold mb-2">Service Process</h3>
+            <div className="space-y-3">
                 {services.map((service, idx) => (
-                    <Stack key={idx} direction="row" spacing={2} alignItems="center">
-                        <SupportAgentIcon color="primary" />
-                        <Typography>{service}</Typography>
-                    </Stack>
+                    <div key={idx} className="flex items-center space-x-3">
+                        <CustomerServiceOutlined className="text-blue-500 text-xl" />
+                        <p>{service}</p>
+                    </div>
                 ))}
-            </Stack>
-            <Button sx={{ mt: 2 }}>+ Explore more service</Button>
-        </Box>
+            </div>
+            <Button type="default" className="mt-4">+ Explore more service</Button>
+        </div>
     );
 }

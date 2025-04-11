@@ -1,52 +1,45 @@
+'use client';
+
 import React from 'react';
-import { Box, Container, Typography, Stack } from '@mui/material';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import PhoneIcon from '@mui/icons-material/Phone';
-import EmailIcon from '@mui/icons-material/Email';
+import {
+    EnvironmentOutlined,
+    PhoneOutlined,
+    MailOutlined,
+} from '@ant-design/icons';
 import Image from 'next/image';
 
-const Footer = () => {
+export default function AppFooter() {
     return (
-        <Box
-            component="footer"
-            sx={{
-                backgroundColor: '#0085FF',
-                color: 'white',
-                py: 2,
-                mt: 'auto',
-            }}
-        >
-            <Container maxWidth="lg">
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: { xs: 2, md: 0 } }}>
-                        <Image
-                            src="/logo/logo.jpg"
-                            alt="Vietnam Innovation Gateway Logo"
-                            width={100}
-                            height={100}
-                        />
-                    </Box>
-                    <Stack spacing={1}>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <LocationOnIcon sx={{ mr: 1 }} />
-                            <Typography variant="body2">140 Tran Duy Hung, Ha Noi, Vietnam</Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <PhoneIcon sx={{ mr: 1 }} />
-                            <Typography variant="body2">(123) 456-7890</Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <EmailIcon sx={{ mr: 1 }} />
-                            <Typography variant="body2">(123) 456-7890</Typography>
-                        </Box>
-                    </Stack>
-                </Box>
-                <Typography variant="caption" sx={{ display: 'block', textAlign: 'center', mt: 2, pt: 2, borderTop: '1px solid rgba(255,255,255,0.2)' }}>
-                    Copyright 2024 © State Agency of Technology and Innovation, Ministry of Science and Technology of Vietnam
-                </Typography>
-            </Container >
-        </Box >
-    );
-};
+        <div className="bg-blue-500 text-white mt-auto px-6 py-8">
+            <div className="max-w-screen-lg mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="flex items-center">
+                    <Image
+                        src="/logo/logo.jpg"
+                        alt="Vietnam Innovation Gateway Logo"
+                        width={100}
+                        height={100}
+                    />
+                </div>
 
-export default Footer;
+                <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2">
+                        <EnvironmentOutlined />
+                        <div className="text-white">140 Tran Duy Hung, Ha Noi, Vietnam</div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <PhoneOutlined />
+                        <div className="text-white">(123) 456-7890</div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <MailOutlined />
+                        <div className="text-white">info@vig.gov.vn</div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="text-center text-xs text-white border-t border-white/20 pt-4 mt-6">
+                © 2024 State Agency of Technology and Innovation, Ministry of Science and Technology of Vietnam
+            </div>
+        </div>
+    );
+}

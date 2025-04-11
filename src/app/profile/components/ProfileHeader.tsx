@@ -1,22 +1,24 @@
-import { Box, Avatar, Typography, Button, Stack } from '@mui/material';
+'use client';
+import { Avatar, Button } from 'antd';
 
 export default function ProfileHeader() {
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>
-            <Stack direction="row" spacing={2} alignItems="center">
+        <div className="flex justify-between mb-6">
+            <div className="flex items-center gap-4">
                 <Avatar
-                    alt="Huynh Thanh Dat"
                     src="/path-to-avatar.jpg"
-                    sx={{ width: 80, height: 80 }}
+                    alt="Huynh Thanh Dat"
+                    size={80}
                 />
-                <Box>
-                    <Typography variant="h6">Huynh Thanh Dat</Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        huynhthanhdat@gmail.com
-                    </Typography>
-                </Box>
-            </Stack>
-            <Button sx={{ width: 80, height: 40 }} variant="contained">Edit</Button>
-        </Box>
+                <div>
+                    <h2 className="text-lg font-semibold">Huynh Thanh Dat</h2>
+                    <p className="text-gray-500 text-sm">huynhthanhdat@gmail.com</p>
+                </div>
+            </div>
+
+            <Button type="primary" className="w-20 h-10">
+                Edit
+            </Button>
+        </div>
     );
 }
