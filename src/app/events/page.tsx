@@ -131,7 +131,6 @@ const EventsPage = () => {
                 </div>
             </div>
 
-            {/* Events Grid */}
             <div className="max-w-6xl mx-auto px-4 mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {events.map((event) => (
                     <Card
@@ -160,7 +159,6 @@ const EventsPage = () => {
                 ))}
             </div>
 
-            {/* Load More */}
             <div className="text-center mt-10">
                 <Button type="default" shape="round" size="large">
                     Xem thêm

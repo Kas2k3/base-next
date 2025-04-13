@@ -1,6 +1,4 @@
-'use client'
-
-import { Typography, Divider, Card, Button } from 'antd'
+import { Card, Button, Divider } from 'antd';
 
 const newsList = [
     {
@@ -24,14 +22,12 @@ const newsList = [
         image: 'https://ohmyfacts.com/wp-content/uploads/2024/10/27-facts-about-innovation-1728450595.jpg',
         date: 'June 5, 2014',
     },
-]
+];
 
 export default function ContentNews() {
     return (
         <div className="mx-[50px]">
-            <Typography.Title level={5} className="text-blue-600 mb-4">
-                News:
-            </Typography.Title>
+            <h3 className="text-blue-600 mb-4">News:</h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {newsList.map((item, index) => (
@@ -61,5 +57,5 @@ export default function ContentNews() {
 
             <Divider className="mb-8" />
         </div>
-    )
+    );
 }

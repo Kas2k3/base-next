@@ -1,4 +1,3 @@
-'use client';
 import { Avatar, Button } from 'antd';
 
 export default function ProfileHeader() {

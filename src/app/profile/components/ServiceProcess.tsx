@@ -1,4 +1,3 @@
-'use client';
 import { Button } from 'antd';
 import { CustomerServiceOutlined } from '@ant-design/icons';
 

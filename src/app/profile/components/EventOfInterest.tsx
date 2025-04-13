@@ -1,6 +1,5 @@
-'use client';
 import { CalendarOutlined } from '@ant-design/icons';
-import { Button, Typography } from 'antd';
+import { Button } from 'antd';
 
 const events = [
     { name: 'THE 5TH ANNIVERSARY CELEBRATION OF THE CENTER’S ESTABLISHMENT', date: '14th April' },
@@ -10,20 +9,20 @@ const events = [
 export default function EventOfInterest() {
     return (
         <div className="mb-6">
-            <Typography.Title level={5} className="!mb-4">
+            <div className="text-2xl !mb-4">
                 Event of Interest
-            </Typography.Title>
+            </div>
 
             <div className="space-y-4">
                 {events.map((event, idx) => (
                     <div key={idx} className="flex items-start gap-3">
                         <CalendarOutlined className="text-blue-500 text-xl mt-1" />
                         <div>
-                            <Typography.Text strong>{event.name}</Typography.Text>
+                            <div className="text-2xl strong">{event.name}</div>
                             <br />
-                            <Typography.Text type="secondary" className="text-sm">
+                            <div className="text-sm">
                                 {event.date}
-                            </Typography.Text>
+                            </div>
                         </div>
                     </div>
                 ))}

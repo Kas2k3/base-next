@@ -1,4 +1,3 @@
-'use client';
 const info = {
     fullName: 'Huynh Thanh Dat',
     dob: '08/26/1962',

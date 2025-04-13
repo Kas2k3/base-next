@@ -1,46 +1,19 @@
-"use client";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button, Form, Input, Typography, message } from "antd";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import Image from "next/image";
-import Link from "next/link";
-
-const { Title, Text } = Typography;
+'use client'
+import { Button, Form, Input, message } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function AuthRegister() {
-    const router = useRouter();
-    const [loading, setLoading] = useState(false);
-
-    const onFinish = async (values: any) => {
-        setLoading(true);
+    const onFinish = (values: any) => {
         const { email, password, confirmPassword } = values;
 
         if (password !== confirmPassword) {
             message.error("Mật khẩu nhập lại không khớp.");
-            setLoading(false);
             return;
         }
-
-        try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
-                credentials: "include",
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) throw new Error(data.message || "Đăng ký thất bại.");
-
-            router.push("/auth/login");
-        } catch (err: any) {
-            message.error(err.message);
-        }
-
-        setLoading(false);
+        message.success("Đăng ký thành công.");
+        window.location.href = "/auth/login";
     };
 
     return (
@@ -50,9 +23,9 @@ export default function AuthRegister() {
                     <Image src="/logo/logo.jpg" alt="Logo" width={70} height={70} />
                 </div>
 
-                <Title level={4} className="text-center mb-6">
+                <h4 className="text-center mb-6">
                     Đăng ký tài khoản
-                </Title>
+                </h4>
 
                 <Form layout="vertical" onFinish={onFinish}>
                     <Form.Item
@@ -96,7 +69,6 @@ export default function AuthRegister() {
                         <Button
                             type="primary"
                             htmlType="submit"
-                            loading={loading}
                             className="w-full"
                         >
                             Đăng ký
@@ -105,12 +77,12 @@ export default function AuthRegister() {
                 </Form>
 
                 <div className="text-center mt-4">
-                    <Text type="secondary">
+                    <p className="text-gray-500">
                         Đã có tài khoản?{" "}
                         <Link href="/auth/login" className="text-blue-600">
                             Đăng nhập
                         </Link>
-                    </Text>
+                    </p>
                 </div>
             </div>
         </div>

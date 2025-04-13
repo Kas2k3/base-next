@@ -1,5 +1,3 @@
-'use client';
-
 import ContentEvent from "@/components/content/ContentEvent";
 import ContentIntroduce from "@/components/content/ContentIntroduce";
 import ContentNews from "@/components/content/ContentNews";

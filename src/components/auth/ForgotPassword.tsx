@@ -1,34 +1,15 @@
-"use client";
+'use client'
+import { useState } from 'react';
+import { Form, Input, Button, message } from 'antd';
+import Image from 'next/image';
 
-import { useState } from "react";
-import { Form, Input, Button, Typography, message } from "antd";
-import Image from "next/image";
-
-const { Title, Text } = Typography;
-
-export default function ForgotPassword() {
+const ForgotPasswordPage = () => {
     const [loading, setLoading] = useState(false);
 
-    const onFinish = async (values: { email: string }) => {
-        const { email } = values;
+    const onFinish = (values: { email: string }) => {
         setLoading(true);
 
-        try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/forgot-password`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email }),
-                credentials: "include",
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) throw new Error(data.message || "Gửi yêu cầu thất bại.");
-
-            message.success("Liên kết đặt lại mật khẩu đã được gửi tới email.");
-        } catch (err: any) {
-            message.error(err.message || "Có lỗi xảy ra.");
-        }
+        message.success("Liên kết đặt lại mật khẩu đã được gửi tới email.");
 
         setLoading(false);
     };
@@ -40,13 +21,13 @@ export default function ForgotPassword() {
                     <Image src="/logo/logo.jpg" alt="Logo" width={70} height={70} />
                 </div>
 
-                <Title level={4} className="text-center mb-2">
+                <h4 className="text-center mb-2">
                     Quên mật khẩu
-                </Title>
+                </h4>
 
-                <Text type="secondary" className="block text-center mb-6">
+                <p className="text-center text-gray-500 mb-6">
                     Nhập địa chỉ email bạn đã đăng ký. Chúng tôi sẽ gửi liên kết để đặt lại mật khẩu.
-                </Text>
+                </p>
 
                 <Form layout="vertical" onFinish={onFinish}>
                     <Form.Item
@@ -74,4 +55,6 @@ export default function ForgotPassword() {
             </div>
         </div>
     );
-}
+};
+
+export default ForgotPasswordPage;

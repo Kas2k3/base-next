@@ -1,6 +1,4 @@
-'use client'
-
-import { Typography, Button, Card, Tag } from 'antd'
+import { Button, Card } from 'antd'
 
 const events = [
     {
@@ -41,9 +39,9 @@ function formatDate(dateString: string) {
 export default function ContentEvent() {
     return (
         <div className="mx-[50px]">
-            <Typography.Title level={3} className="text-blue-600 mb-4">
+            <h3 className="text-blue-600 mb-4">
                 Events:
-            </Typography.Title>
+            </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {events.map((event) => {
@@ -60,7 +58,7 @@ export default function ContentEvent() {
                                     className="h-[180px] w-full object-cover"
                                 />
                             }
-                            bodyStyle={{ padding: '16px' }}
+                            styles={{ body: { padding: 16 } }}
                         >
                             <div className="flex mb-2">
                                 <div className="text-center mr-4">
@@ -68,12 +66,10 @@ export default function ContentEvent() {
                                     <div className="text-lg font-bold leading-none">{day}</div>
                                 </div>
                                 <div>
-                                    <Typography.Text strong className="block">
+                                    <strong className="block">
                                         {event.title}
-                                    </Typography.Text>
-                                    <Typography.Paragraph type="secondary" ellipsis={{ rows: 2 }}>
-                                        {event.description}
-                                    </Typography.Paragraph>
+                                    </strong>
+                                    <p className="text-secondary text-sm truncate">{event.description}</p>
                                 </div>
                             </div>
 

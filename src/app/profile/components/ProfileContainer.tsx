@@ -1,4 +1,3 @@
-'use client';
 import { Card } from 'antd';
 
 export default function ProfileContainer({ children }: { children: React.ReactNode }) {
