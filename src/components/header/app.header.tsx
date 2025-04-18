@@ -1,37 +1,34 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { DownOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons'
-import { Avatar, Button, Drawer, Dropdown, Space } from 'antd'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useSession } from 'next-auth/react'
-import { usePathname } from 'next/navigation'
+import { useState } from 'react';
+import { DownOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Button, Drawer, Dropdown, Space } from 'antd';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import LanguageSwitcher from '../button/LanguageSwitcher';
 
 const AppHeader = () => {
-    const { data: session } = useSession()
-    const pathname = usePathname()
-    const [drawerOpen, setDrawerOpen] = useState(false)
+    const t = useTranslations();
+    const { data: session } = useSession();
+    const pathname = usePathname();
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     const menuItems = [
-        { label: 'Home', href: '/' },
-        { label: 'About', href: '/about' },
-        { label: 'Services', href: '/services' },
-        { label: 'News', href: '/news' },
-        { label: 'Events', href: '/events' },
-        { label: 'Contact', href: '/contact' },
-    ]
+        { label: t('home'), href: '/' },
+        { label: t('about'), href: '/about' },
+        { label: t('services'), href: '/services' },
+        { label: t('news'), href: '/news' },
+        { label: t('events'), href: '/events' },
+        { label: t('contact'), href: '/contact' },
+    ];
 
     const items = [
-        {
-            label: <span>Profile</span>,
-            key: 'profile',
-        },
-        {
-            label: <span>Logout</span>,
-            key: 'logout',
-        },
-    ]
+        { label: t('profile'), key: 'profile' },
+        { label: t('logout'), key: 'logout' },
+    ];
 
     return (
         <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
@@ -59,6 +56,9 @@ const AppHeader = () => {
                             {item.label}
                         </Link>
                     ))}
+
+                    <LanguageSwitcher />
+
                     {session ? (
                         <Dropdown menu={{ items }} placement="bottomRight" arrow>
                             <button onClick={(e) => e.preventDefault()}>
@@ -70,7 +70,7 @@ const AppHeader = () => {
                         </Dropdown>
                     ) : (
                         <Link href="/auth/login">
-                            <Button type="primary">Đăng nhập</Button>
+                            <Button type="primary">{t('login')}</Button>
                         </Link>
                     )}
                 </nav>
@@ -81,7 +81,7 @@ const AppHeader = () => {
             </div>
 
             <Drawer
-                title="Menu"
+                title={t('menu')}
                 placement="right"
                 onClose={() => setDrawerOpen(false)}
                 open={drawerOpen}
@@ -99,16 +99,16 @@ const AppHeader = () => {
                     <hr />
                     {session ? (
                         <>
-                            <Link href="/profile" className="text-lg">Profile</Link>
-                            <button className="text-left text-lg w-full">Logout</button>
+                            <Link href="/profile" className="text-lg">{t('profile')}</Link>
+                            <button className="text-left text-lg w-full">{t('logout')}</button>
                         </>
                     ) : (
-                        <Link href="/auth/login" className="text-md">Đăng nhập</Link>
+                        <Link href="/auth/login" className="text-md">{t('login')}</Link>
                     )}
                 </nav>
             </Drawer>
         </header>
-    )
-}
+    );
+};
 
-export default AppHeader
+export default AppHeader;

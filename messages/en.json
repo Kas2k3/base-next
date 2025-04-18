@@ -1,0 +1,108 @@
+{
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "news": "News",
+    "events": "Events",
+    "contact": "Contact",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login",
+    "menu": "Menu",
+    "contentIntroduce": {
+        "title": "General Introduction",
+        "description": "Innovation is understood as the process of transforming knowledge and technology into tangible products. Innovation does not necessarily originate from research and development activities but can also stem from experiences and knowledge generated in practical production and daily life. However, it cannot be separated from science and technology (S&T). Innovation serves as an extension and a subsequent step of S&T activities to penetrate the market.",
+        "viewMore": "View more"
+    },
+    "servicesPage": {
+        "title": "Our Services",
+        "description": "We offer a wide range of services to meet your needs."
+    },
+    "contactPage": {
+        "title": "Contact Us",
+        "description": "We are always ready to assist you. Please reach out to us through the channels below."
+    },
+    "aboutPage": {
+        "title": "Vietnam Innovation Gateway",
+        "description": "Innovation is understood as the process of transforming knowledge and technology into tangible products. It does not necessarily originate from research and development activities but can also stem from experiences and knowledge generated in practical production and daily life. However, it cannot be separated from science and technology (S&T). Innovation serves as an extension and a subsequent step of S&T activities to penetrate the market."
+    },
+    "newsPage": {
+        "title": "News",
+        "sectionTitleVN": "Vietnam",
+        "sectionTitleGLB": "Global"
+    },
+    "eventsPage": {
+        "title": "Events",
+        "detailTitle": "Event Details",
+        "filters": {
+            "name": "Event name",
+            "location": "Location",
+            "time": "Time",
+            "enterPlaceholder": "Please enter...",
+            "anyDate": "Any date",
+            "today": "Today",
+            "tomorrow": "Tomorrow",
+            "thisWeek": "This Week",
+            "thisMonth": "This Month",
+            "sort": {
+                "status": "Status",
+                "category": "Category",
+                "all": "All",
+                "upcoming": "Upcoming",
+                "ongoing": "Ongoing",
+                "ended": "Ended",
+                "science": "Science",
+                "tech": "Technology",
+                "internal": "Internal"
+            },
+            "card": {
+                "register": "Register",
+                "details": "Details"
+            },
+            "actions": {
+                "loadMore": "Load more",
+                "backToList": "Back to list",
+                "notFound": "Event not found"
+            }
+        }
+    },
+    "signIn": {
+        "title": "Sign in to your account",
+        "emailLabel": "Email",
+        "emailMessage": "Please enter your email",
+        "emailPlaceholder": "Your email",
+        "passwordLabel": "Password",
+        "passwordMessage": "Please enter your password",
+        "passwordPlaceholder": "Password",
+        "rememberMe": "Remember me",
+        "forgotPassword": "Forgot password?",
+        "submit": "Sign in",
+        "noAccount": "Don't have an account?",
+        "signUp": "Sign up",
+        "error": "Incorrect email or password"
+    },
+    "register": {
+        "title": "Create an Account",
+        "emailLabel": "Email",
+        "emailMessage": "Please enter your email",
+        "emailPlaceholder": "Your email",
+        "passwordLabel": "Password",
+        "passwordMessage": "Please enter your password",
+        "passwordPlaceholder": "Password",
+        "confirmPasswordLabel": "Confirm Password",
+        "confirmPasswordMessage": "Please confirm your password",
+        "confirmPasswordPlaceholder": "Confirm your password",
+        "submit": "Register",
+        "noAccount": "Already have an account?",
+        "signIn": "Sign in",
+        "error": "Passwords do not match"
+    },
+    "forgotPassword": {
+        "title": "Forgot Password",
+        "description": "Enter the email address you registered with. We will send a link to reset your password.",
+        "emailLabel": "Email",
+        "emailMessage": "Please enter your email",
+        "emailPlaceholder": "Your email",
+        "submit": "Send password reset link"
+    }
+}

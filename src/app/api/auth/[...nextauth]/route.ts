@@ -1,7 +1,6 @@
 import { IBackendRes } from './../../../../types/backend.d';
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth from "next-auth";
-import { signIn } from "next-auth/react";
 import { sendRequest } from '@/utils/api';
 import { JWT } from 'next-auth/jwt';
 
@@ -22,12 +21,12 @@ export const authOptions = {
                         email: credentials?.email,
                         password: credentials?.password
                     }
-                })
+                });
 
                 if (res && res.data) {
                     return res.data as any;
                 } else {
-                    return new Error(res?.message)
+                    return new Error(res?.message);
                 }
             }
         })
@@ -35,6 +34,7 @@ export const authOptions = {
     callbacks: {
 
     },
-}
+};
 
-export default NextAuth(authOptions)
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };

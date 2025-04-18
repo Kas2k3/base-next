@@ -1,5 +1,7 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from 'next';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const nextConfig: NextConfig = {
     reactStrictMode: true,
     modularizeImports: {
         '@mui/icons-material': {
@@ -18,4 +20,5 @@ const nextConfig = {
     },
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin();
+export default withNextIntl(nextConfig);

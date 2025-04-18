@@ -1,0 +1,108 @@
+{
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "services": "Dịch vụ",
+    "news": "Tin tức",
+    "events": "Sự kiện",
+    "contact": "Liên hệ",
+    "profile": "Hồ sơ",
+    "logout": "Đăng xuất",
+    "login": "Đăng nhập",
+    "menu": "Danh mục",
+    "contentIntroduce": {
+        "title": "Giới thiệu chung",
+        "description": "Đổi mới được hiểu là quá trình chuyển đổi kiến thức và công nghệ thành các sản phẩm hữu hình. Đổi mới không nhất thiết phải bắt nguồn từ các hoạt động nghiên cứu và phát triển mà cũng có thể xuất phát từ những trải nghiệm và kiến thức được hình thành trong sản xuất thực tế và cuộc sống hàng ngày. Tuy nhiên, nó không thể tách rời khỏi khoa học và công nghệ (KHCN). Đổi mới là sự mở rộng và bước tiếp theo của các hoạt động KHCN để thâm nhập vào thị trường.",
+        "viewMore": "Xem thêm"
+    },
+    "servicesPage": {
+        "title": "Dịch vụ của chúng tôi",
+        "description": "Chúng tôi cung cấp một loạt các dịch vụ để đáp ứng nhu cầu của bạn."
+    },
+    "contactPage": {
+        "title": "Liên hệ với chúng tôi",
+        "description": "Chúng tôi luôn sẵn sàng hỗ trợ bạn. Hãy liên hệ với chúng tôi qua các kênh dưới đây."
+    },
+    "aboutPage": {
+        "title": "Cổng thông tin đổi mới sáng tạo Việt Nam",
+        "description": "Đổi mới được hiểu là quá trình chuyển đổi kiến thức và công nghệ thành các sản phẩm hữu hình. Nó không nhất thiết phải bắt nguồn từ các hoạt động nghiên cứu và phát triển mà cũng có thể xuất phát từ những trải nghiệm và kiến thức được hình thành trong sản xuất thực tế và cuộc sống hàng ngày. Tuy nhiên, nó không thể tách rời khỏi khoa học và công nghệ (KHCN). Đổi mới là sự mở rộng và bước tiếp theo của các hoạt động KHCN để thâm nhập vào thị trường."
+    },
+    "newsPage": {
+        "title": "Tin tức",
+        "sectionTitleVN": "Việt Nam",
+        "sectionTitleGLB": "Thế giới"
+    },
+    "eventsPage": {
+        "title": "Sự Kiện",
+        "detailTitle": "Chi Tiết Sự Kiện",
+        "filters": {
+            "name": "Tên sự kiện",
+            "location": "Địa điểm",
+            "time": "Thời gian",
+            "enterPlaceholder": "Vui lòng nhập...",
+            "anyDate": "Bất kỳ ngày nào",
+            "today": "Hôm nay",
+            "tomorrow": "Ngày mai",
+            "thisWeek": "Tuần này",
+            "thisMonth": "Tháng này",
+            "sort": {
+                "status": "Tình trạng",
+                "category": "Thể loại",
+                "all": "Tất cả",
+                "upcoming": "Sắp diễn ra",
+                "ongoing": "Đang diễn ra",
+                "ended": "Đã kết thúc",
+                "science": "Khoa học",
+                "tech": "Công nghệ",
+                "internal": "Nội bộ"
+            },
+            "card": {
+                "register": "Đăng ký",
+                "details": "Chi tiết"
+            },
+            "actions": {
+                "loadMore": "Xem thêm",
+                "backToList": "Quay lại",
+                "notFound": "Không tìm thấy sự kiện"
+            }
+        }
+    },
+    "signIn": {
+        "title": "Đăng nhập tài khoản",
+        "emailLabel": "Email",
+        "emailMessage": "Vui lòng nhập email",
+        "emailPlaceholder": "Email của bạn",
+        "passwordLabel": "Mật khẩu",
+        "passwordMessage": "Vui lòng nhập mật khẩu",
+        "passwordPlaceholder": "Mật khẩu",
+        "rememberMe": "Ghi nhớ đăng nhập",
+        "forgotPassword": "Quên mật khẩu?",
+        "submit": "Đăng nhập",
+        "noAccount": "Chưa có tài khoản?",
+        "signUp": "Đăng ký",
+        "error": "Sai email hoặc mật khẩu"
+    },
+    "register": {
+        "title": "Tạo tài khoản",
+        "emailLabel": "Email",
+        "emailMessage": "Vui lòng nhập email",
+        "emailPlaceholder": "Email của bạn",
+        "passwordLabel": "Mật khẩu",
+        "passwordMessage": "Vui lòng nhập mật khẩu",
+        "passwordPlaceholder": "Mật khẩu",
+        "confirmPasswordLabel": "Nhập lại mật khẩu",
+        "confirmPasswordMessage": "Vui lòng nhập lại mật khẩu",
+        "confirmPasswordPlaceholder": "Nhập lại mật khẩu",
+        "submit": "Đăng ký",
+        "noAccount": "Đã có tài khoản?",
+        "signIn": "Đăng nhập",
+        "error": "Mật khẩu nhập lại không khớp"
+    },
+    "forgotPassword": {
+        "title": "Quên mật khẩu",
+        "description": "Nhập địa chỉ email bạn đã đăng ký. Chúng tôi sẽ gửi liên kết để đặt lại mật khẩu.",
+        "emailLabel": "Email",
+        "emailMessage": "Vui lòng nhập email",
+        "emailPlaceholder": "Email của bạn",
+        "submit": "Gửi liên kết đặt lại mật khẩu"
+    }
+}

@@ -1,31 +1,41 @@
-import AppFooter from "@/components/footer/app.footer";
-import AppHeader from "@/components/header/app.header";
-import AuthWrapper from "@/lib/auth.wrapper";
-import './globals.css'
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
+import AppFooter from '@/components/footer/app.footer';
+import AppHeader from '@/components/header/app.header';
+import AuthWrapper from '@/lib/auth.wrapper';
+import LanguageSwitcher from '@/components/button/LanguageSwitcher';
+import './globals.css';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const messages = await getMessages();
+  const locale = await getLocale();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body>
-        <AuthWrapper>
-          <div
-            style={{
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-              position: "sticky",
-              top: 0,
-              zIndex: 1000,
-              backgroundColor: "#fff",
-            }}
-          >
-            <AppHeader />
-          </div>
+        <NextIntlClientProvider messages={messages}>
+          <AuthWrapper>
+            <div
+              style={{
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                position: 'sticky',
+                top: 0,
+                zIndex: 1000,
+                backgroundColor: '#fff',
+              }}
+            >
+              <AppHeader />
+            </div>
 
-          <main className="pt-[85px]">
-            {children}
-          </main>
+            <main >{children}</main>
 
-          <AppFooter />
-        </AuthWrapper>
+            <AppFooter />
+          </AuthWrapper>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
